@@ -613,12 +613,12 @@
 			border-radius: 4px;
 			content: '';
 			display: block;
-			height: 75%;
+			height: 0%;
 			left: 0;
 			opacity: 1.0;
 			position: absolute;
 			top: 0;
-			width: 100%;
+			width: 0%;
 		}
 
 		.image img {
