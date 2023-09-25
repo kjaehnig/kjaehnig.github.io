@@ -1,0 +1,213 @@
+<!DOCTYPE HTML>
+<!--
+	TXT by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>karl.bayesian.parameter.inference</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<header id="header">
+					<div class="logo container">
+						<div>
+							<!-- <h1><a href="../index.html" id="logo">TXT</a></h1> -->
+							<p>Portfolio</p>
+						</div>
+					</div>
+				</header>
+				
+			<!-- Nav -->
+				<nav id="nav">
+					<ul>
+						<li class="current"><a href="../index.html">Home</a></li>
+						<!-- <li> -->
+							<!-- <a href="#">Qualifications</a> -->
+							<!-- <ul> -->
+								<!-- <li><a href="#">Research</a></li> -->
+								<!-- <li><a href="#">Portfolio</a></li> -->
+								<!-- <li> -->
+									<!-- <a href="#">Qualifications</a> -->
+									<!-- <ul> -->
+									
+									<!-- <li><a href="kjaehnig.industry.resume.pdf">Industry Resume</a></li> -->
+										<!-- <li><a href="#">Magna phasellus</a></li> -->
+										<!-- <li><a href="#">Etiam dolore nisl</a></li> -->
+									<!-- </ul> -->
+								<!-- </li> -->
+								<!-- <li><a href="#">Veroeros feugiat</a></li> -->
+							<!-- </ul> -->
+						<!-- </li> -->
+						<li><a href="../jaehnig_academic_cv.pdf">CV</a></li>
+						<li><a href="../kjaehnig.industry.resume.pdf">Resume</a></li>
+						<li><a href="../about-me.html">About Me</a></li>
+						<li><a href="../research.html">Research</a></li>
+						<li><a href="../portfolio.html">Portfolio</a></li>
+						<li><a href="../blog.html">Blog</a></li>
+
+						<!-- <li><a href="no-sidebar.html">No Sidebar</a></li> -->
+					</ul>
+				</nav>
+
+			<!-- Main -->
+				<section id="main">
+					<div class="container">
+						<div class="row">
+							<div class="col-12">
+								<div class="content">
+
+									<!-- Content -->
+
+										<article class="box page-content">
+
+										<header>
+											<h2>Bayesian Parameter Inference</h2>
+											<p>Building a flexible framework to infer complete binary-star orbital parameters from sparse time-series data sets with Hamiltonian Monte Carlo</p>
+											<ul class="meta">
+												<li class="icon fa-clock">Edited Sept 02 2023</li>
+											</ul>
+										</header>
+
+
+		                                <center>
+		                                	<img width="70%" src="../images/Tatooine-sunset.jpg">
+		                            	</center>
+		                                <p> 
+		                                	Hey remember that sweet shot of a beautiful double-sunset on the planet Tatooine from the original Star Wars film? Actual stars in our night sky be found orbiting each other in pairs such as the tso suns pictured above, and they are called binary stars. 
+										</p>
+
+										<p>
+											What binds them together is their mutual gravity towards each other forming a [usually] stable orbital system. The overall gravitational effect can be described as that force if you hold hands with someone and twirl around your held hands in a circle. You (and your dance partner) will feel a force from your side in the direction of your twirl and a force towards your held hands which keeps you from flying apart. Below is a pair of animations to illustrate this. The scientific animation on the left showing a binary star in space, and the not scientific animation on the right showing two dancers (one human and one cat) twirling from a certain James Cameron historical-fiction epic.
+										</p>
+										<div class='container' width='100%'>
+			                                <div class='row' >
+			                                	<div class='column'>
+			                                		<img width='110%' src="https://64.media.tumblr.com/225990b9cda7e122c9c1323601713c7c/364ffb72739d7d0d-96/s500x750/e98ac65ecc9e2c3c8c7eaa5a301402c6837cb99c.gifv">
+			                                	</div>
+			                                	<div class='column'>
+			                                		<img width='120%' src="https://media.tenor.com/KZvbxR44o64AAAAC/catatonic-owlkitty.gif">
+			                                	</div>
+			                                </div>
+			                            </div>
+										</article>
+										<p>
+											This orbital system has a number of parameters that describe the orientation of the stars to each other in their orbit, as well as the orientation of the binary system itself with respect to our line of sight. Unfortunately, there are two major issues that prevent constraining these parameters an 'easy' process.
+											<ol>
+												<li>It takes a lot of chronological observations to produce a dataset that can help effectively constrain orbital parameters.
+												</li>
+												<li>There are multiple orbital parameters that can produce the same observed effect in observations. This makes separating these parameters effectively very hard. These parameters can be considered 'degenerate'. Degeneracy here means that it is difficult to separate the effect each of these parameters has on the observed data, which makes it harder to infer the values of these parameters.</li>
+											</ol>
+
+											There are many types of chronological data we could use to determine the parameters of a binary system. This framework made use of two different time-series data:
+											<ol>
+												<li>Radial Velocty data, which is a measurement of velocity along our line-of-sight.</li>
+												<li>Transit Light Flux data, which is a measurement of how the brightness of the system changes as one star passes in front of the other star along our line-of-sight.</li>
+											</ol>
+
+											We don't have many individual data points for many of these binary systems, where some binaries only have 5 radial velocity measurements.
+										</p>
+
+								</div>
+									<section>
+										<div class="col-12">
+											<ul class="actions">
+												<li><a href="#" class="button large">Go to this Github repo</a></li>
+												<!-- <li><a href="#" class="button alt large">Think About It</a></li> -->
+											</ul>
+										</div>
+									</section>
+
+							</div>
+							<div class="col-12">
+									<section >
+										<h2 class="major"><span>Get in touch</span></h2>
+										<ul class="contact">
+											<!-- <li><a class="icon brands fa-facebook-f" href="#"><span class="label">Facebook</span></a></li> -->
+											<!-- <li><a class="icon brands fa-twitter" href="#"><span class="label">Twitter</span></a></li> -->
+											<!-- <li><a class="icon brands fa-instagram" href="#"><span class="label">Instagram</span></a></li> -->
+											<!-- <li><a class="icon brands fa-dribbble" href="#"><span class="label">Dribbble</span></a></li> -->
+											<center>
+												<li><a class='icon solid fa-envelope' href="mailto:divides-00-congas@icloud.com"><span class='label'>Email</span></a></li>
+												<li><a class="icon brands fa-github" href="https://www.github.com/kjaehnig"><span class="label">Github</span></a></li>
+												<li><a class="icon brands fa-linkedin-in" href="https://www.linkedin.com/in/karljaehnig"><span class="label">LinkedIn</span></a></li>
+											</center>
+										</ul>
+										<center>
+										<div id="copyright">
+											<ul class="menu">
+												<li>&copy; Karl Jaehnig. All rights reserved</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+											</ul>
+										</div>
+										</center>		
+									</section>
+							</div>
+						</div>
+					</div>
+				</section>
+
+			<!-- Footer -->
+				<!-- <footer id="footer"> -->
+					<!-- <div class="container"> -->
+						<!-- <div class="row gtr-200"> -->
+							<!-- <div class="col-12"> -->
+
+								<!-- About -->
+									<!-- <section> -->
+										<!-- <h2 class="major"><span>What's this about?</span></h2> -->
+										<!-- <p> -->
+											<!-- This is <strong>TXT</strong>, yet another free responsive site template designed by -->
+											<!-- <a href="http://twitter.com/ajlkn">AJ</a> for <a href="http://html5up.net">HTML5 UP</a>. It's released under the -->
+											<!-- <a href="http://html5up.net/license/">Creative Commons Attribution</a> license so feel free to use it for -->
+											<!-- whatever you're working on (personal or commercial), just be sure to give us credit for the design. -->
+											<!-- That's basically it :) -->
+										<!-- </p> -->
+									<!-- </section> -->
+
+							<!-- </div> -->
+							<!-- <div class="col-12"> -->
+
+								<!-- Contact -->
+									<!-- <section> -->
+										<!-- <h2 class="major"><span>Get in touch</span></h2> -->
+										<!-- <ul class="contact"> -->
+											<!-- <li><a class="icon brands fa-facebook-f" href="#"><span class="label">Facebook</span></a></li> -->
+											<!-- <li><a class="icon brands fa-twitter" href="#"><span class="label">Twitter</span></a></li> -->
+											<!-- <li><a class="icon brands fa-instagram" href="#"><span class="label">Instagram</span></a></li> -->
+											<!-- <li><a class="icon brands fa-dribbble" href="#"><span class="label">Dribbble</span></a></li> -->
+											<!-- <li><a class="icon brands fa-linkedin-in" href="#"><span class="label">LinkedIn</span></a></li> -->
+										<!-- </ul> -->
+									<!-- </section> -->
+
+							<!-- </div> -->
+						<!-- </div> -->
+
+						<!-- Copyright -->
+							<!-- <div id="copyright"> -->
+								<!-- <ul class="menu"> -->
+									<!-- <li>&copy; Untitled. All rights reserved</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li> -->
+								<!-- </ul> -->
+							<!-- </div> -->
+
+					<!-- </div> -->
+				<!-- </footer> -->
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
