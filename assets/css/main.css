@@ -143,7 +143,7 @@ input, select, textarea {
 
 		h2.major {
 			position: relative;
-			border-top: solid 5px #708090;
+			border-top: solid 5px #333333;
 			font-size: 1.65em;
 			text-align: center;
 			margin: 0 0 3em 0;
@@ -151,7 +151,7 @@ input, select, textarea {
 		}
 
 			h2.major span {
-				background: #708090;
+				background: #333333;
 				position: relative;
 				display: inline-block;
 				top: -0.775em;
@@ -1811,7 +1811,7 @@ input, select, textarea {
 		font-weight: 700;
 		text-transform: uppercase;
 		text-decoration: none;
-		background: #708090;
+		background: #333333;
 		color: #fff;
 		border: 0;
 		line-height: 1em;
@@ -1966,7 +1966,7 @@ input, select, textarea {
 				height: 48px;
 				border-radius: 6px;
 				outline: 0;
-				background: #708090;
+				background: #333333;
 				text-align: center;
 			}
 
@@ -2041,7 +2041,7 @@ input, select, textarea {
 					transition: background-color .2s ease-in-out;
 					display: block;
 					text-align: center;
-					background: #708090;
+					background: #333333;
 					border-radius: 100%;
 					width: 2.25em;
 					height: 2.25em;
@@ -2432,13 +2432,13 @@ input, select, textarea {
 			}
 
 			#nav li.current a {
-				background: #708090;
+				background: #333333;
 				color: #fff;
 			}
 
 	.dropotron {
 		list-style: none;
-		background: #708090;
+		background: #333333;
 		color: #fff;
 		border-radius: 6px;
 		line-height: 2.75em;
@@ -2563,7 +2563,7 @@ input, select, textarea {
 	#main {
 		background: rgba(18,18,18,0.25);
 /*		background-image: url("../../images/header.jpg");*/
-		border-top: solid 5px #708090;
+		border-top: solid 5px #333333;
 		border-bottom: solid 5px #121212;
 		border-top-width: 35px;
 		border-bottom-width: 10px;
@@ -2846,7 +2846,7 @@ input, select, textarea {
 						position: absolute;
 						left: 0;
 						top: 0;
-						background: #708090;
+						background: #333333;
 						width: 44px;
 						height: 44px;
 						content: '\f0c9';
