@@ -50,7 +50,7 @@
 						<li><a href="../about-me.html">About Me</a></li>
 						<li><a href="../research.html">Research</a></li>
 						<li><a href="../portfolio.html">Portfolio</a></li>
-						<li><a href="../blog.html">Blog</a></li>
+						<!-- <li><a href="../blog.html">Blog</a></li> -->
 
 						<!-- <li><a href="no-sidebar.html">No Sidebar</a></li> -->
 					</ul>
@@ -65,30 +65,42 @@
 
 									<!-- Content -->
 
-										<article class="box page-content">
+									<article class="box page-content">
 
-											<header>
-												<h2>Bayesian Image Classification</h2>
-												<p>How well can a neural network tell the difference between streets and buildings?</p>
-												<ul class="meta">
-													<li class="icon fa-clock">Edited September 06 2023</li>
-												</ul>
-											</header>
+										<header>
+											<h2>Bayesian Image Classification</h2>
+											<p>How well can a neural network tell the difference between streets and buildings?</p>
+											<ul class="meta">
+												<li class="icon fa-clock">Edited September 06 2023</li>
+											</ul>
+										</header>
 
-										<p> I figured the next step I wanted to take after constructing a dense neural network that classified a vector of mono color values for the MNIST dataset (<a href="bayesian_neural_network.html">Bayesian Neural Network Project Page</a>) is a 2-dimensional convolutional neural network. A convolutional neural network does not flatten the images to be some vector of normalized pixel values. The image itself is taken in and important features are captured. A convolutional neural network uses kernels that pass over the training images and highlight important distinguishing features between classes.
-		                                </p> 
+									<p> I figured the next step I wanted to take after constructing a dense neural network that classified a vector of mono color values for the MNIST dataset (<a href="bayesian_neural_network.html">Bayesian Neural Network Project Page</a>) is a 2-dimensional convolutional neural network. A convolutional neural network does not flatten the images to be some vector of normalized pixel values. The image itself is taken in and important features are captured. A convolutional neural network uses kernels that pass over the training images and highlight important distinguishing features between classes.
+	                                </p> 
 
-		                                <p> The kernel sliding over the image pixel by pixel is the 'convolution' that takes place in this type of neural network. I've linked a useful GIF (Figure 1.) that illustrates a 3x3 pixel kernel sliding over a 6x6 pixel image. After the convolution takes place, the resultant transformed image is now a 4x4 pixel image. The 4x4 pixel image is a composition of the important features within the kernel as it slid over the original image and converted them into single pixel values. Of course, this assumes the kernel parameters used correctly capture important image features. Larger resolution images require multiple layers, each with their own kernels, in order to capture all of the relevant features that distinguish each image class from one another. 
-		                                </p>
+	                                <p> The kernel sliding over the image pixel by pixel is the 'convolution' that takes place in this type of neural network. I've linked a useful GIF (Figure 0.) that illustrates a 3x3 pixel kernel sliding over a 6x6 pixel image. After the convolution takes place, the resultant transformed image is now a 4x4 pixel image. The 4x4 pixel image is a composition of the important features within the kernel as it slid over the original image and converted them into single pixel values. Of course, this assumes the kernel parameters used correctly capture important image features. Larger resolution images require multiple layers, each with their own kernels, in order to capture all of the relevant features that distinguish each image class from one another. 
+	                                </p>
 
-										<center>
-										<figure>
-										<a href="https://miro.medium.com/v2/resize:fit:1400/1*NUu5msHE4z01YQsRFiVBOw.gif"><img width='85%' src="https://miro.medium.com/v2/resize:fit:1400/1*NUu5msHE4z01YQsRFiVBOw.gif" alt="GIF animation of a 3x3 pixel kernel sliding over a 6x6 pixel image and showing the resultant features created from the convolution into the resultant 4x4 pixel image."/></a>
-		                                <figcaption>Figure 1.</figcaption>
-			                            </figure>
-										</center>
-										</article>
+									<center>
+									<figure>
+									<a href="https://miro.medium.com/v2/resize:fit:1400/1*NUu5msHE4z01YQsRFiVBOw.gif"><img width='85%' src="https://miro.medium.com/v2/resize:fit:1400/1*NUu5msHE4z01YQsRFiVBOw.gif" alt="GIF animation of a 3x3 pixel kernel sliding over a 6x6 pixel image and showing the resultant features created from the convolution into the resultant 4x4 pixel image."/></a>
+	                                <figcaption>Figure 0.</figcaption>
+		                            </figure>
+									</center>
+									</article>
 
+									<p> The dataset I used for this project is the Intel image classification datset, which I downloaded from Kaggle. The dataset consists of 14034 training images and 3000 test images spread across 6 classes: building, forest, glacier, mountain, sea, and street. The images are 150x150 pixels with RGB color channels so each image has a shape of 150x150x3. The image below (Figure 1.) is a 5x5 grid of 25 example images from the training set.
+									</p>
+
+									<center>
+									<figure>
+										<img width="100%" src="../images/intel_bayes_cnn/twenty_five_intel_images_example.png" alt='5x5 grid of images from the Intel image classification dataset as an example.'/>
+									<figcaption>Figure 1.</figcaption>
+									</figure>
+									</center>
+
+									<p> I used the keras 'image_dataset_from_directory' utility function to act as a batch generator to the neural network. The generators free up memory by directly loading each new batch without needing to load the entire dataset into local memory. I ran this training on my personal desktop which is running a Ryzen 5600x processor, an RTX 3060 Ti GPU, and 32gb of 3200hz ram. I managed to get CUDA installed on windows to take full advantage of the GPU compute capabilities. 
+									</p>
 								</div>
 <!-- 									<section>
 										<div class="col-12">

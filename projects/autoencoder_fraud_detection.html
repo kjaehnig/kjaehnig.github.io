@@ -68,15 +68,46 @@
 									<article class="box page-content">
 
 										<header>
-											<h2>Project Title</h2>
-											<p>Subtitle</p>
+											<h2>Autoencoders for Fraud Detection</h2>
+											<p>Literally a needle in a haystack costing billions of dollars</p>
 											<ul class="meta">
-												<li class="icon fa-clock">Date</li>
+												<li class="icon fa-clock">November 20, 2023</li>
 											</ul>
 										</header>
 
-										<p>
+										<p> This is part of a data science challenge project I have undertaken as part of the <a href="https://www.correlation-one.com/data-skills-for-all" style="color: #8ebf42">Correlation-One Data Skills for All</a> bootcamp that I started back in October. I have been enjoying with how well structured the bootcamp is to simulate industry specific projects to bolster professional skills in data science.
 										</p>
+
+										<p> Credit card fraud, despite constituting less than 1% of all transactions, cost consumers more than $8.8 billion dollars in 2022 according to the Federal Trade Commission. At least 26% of adults in the United States were affected by fraudulent transactions, with estimated losses over $180 million dollars a year.
+										</p>
+
+										<p> I took part in the data scientist section of this data challenge, which was to build a machine learning model that could effectively discriminate between fraudulent transactions and legitimate transactions. Before I could do that, I needed to analyze the 3 data sets that I was provided for insights. Then I had to clean the datasets for quality assurance, and perform data engineering to construct features. These features would then be scaled and fed to models that can best separate legitimate transactions from fraudulent transactions.  
+										</p>
+
+										<p> The three datasets are credit card fraud datasets from Kaggle that have been filtered to only contain transactions from 2016 - 2019 for 2000 customers. 
+
+											<ol>
+												<li>Credit Card Customer Data (2000 rows x 18 columns)</li>
+												<li>Credit Card per Customer Data (6146 rows x 13 columns)</li>
+												<li>Credit Card Transaction Data (6,877,837 rows x 15 columns)</li>
+											</ol>	
+
+										The sizes of the transaction data proved to be a little troublesome to operate with in a jupyter notebook as it regularly crashed my python kernel until I remembered to run the notebook with plenty of extra memory which avoided the issue entirely. I found that keeping track of memory usage and converting data types to reduce memory usage sped up the subsequent analyses consierably.
+										</p>
+
+										<p> The credit card customer dataset contains some demographic information such as location, gender, birth year, and some financial information like yearly-income, total debt, and FICO scores.
+										</p>
+
+										<p> The credit card per customer dataset has multiple rows for each customer listing out each individual credit card in their name. Also included are financial details such as credit limit and credit card PINs and meta data such as the number of times a card has been reissued (due to loss, damage, theft, etc.).
+										</p>
+
+										<p> The transactions dataset is the largest, containing all of the individual transaction assigned to each customer's identity. It contains a Fraud column that labels each transaction as fraudulent or legitimate. There are only about ~8400 fraudulent transactions among the 6 million rows of legitimate transactions. 
+										</p>
+
+										<p>Data analysis consisted of exploring the columns of each dataset as well as joining the customer and credit card datasets to the "main" transaction dataset to better see what features to teach a model can be engineered.</p>
+
+										
+
 
 									</article>
 								</div>
