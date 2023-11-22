@@ -68,14 +68,14 @@
 									<article class="box page-content">
 
 										<header>
-											<h2>Autoencoders for Fraud Detection</h2>
+											<h2>Autoencoder for Fraud Detection</h2>
 											<p>Literally a needle in a haystack costing billions of dollars</p>
 											<ul class="meta">
 												<li class="icon fa-clock">November 20, 2023</li>
 											</ul>
 										</header>
 
-										<p> This is part of a data science challenge project I have undertaken as part of the <a href="https://www.correlation-one.com/data-skills-for-all" style="color: #8ebf42">Correlation-One Data Skills for All</a> bootcamp that I started back in October. I have been enjoying with how well structured the bootcamp is to simulate industry specific projects to bolster professional skills in data science.
+										<p> This is part of a data science challenge project I have undertaken as part of the <a href="https://www.correlation-one.com/data-skills-for-all" style="color: #8ebf42">Correlation-One Data Skills for All</a> bootcamp that I started back in October. I enjoy how well structured the bootcamp is to simulate industry specific projects to bolster professional skills in data science.
 										</p>
 
 										<p> Credit card fraud, despite constituting less than 1% of all transactions, cost consumers more than $8.8 billion dollars in 2022 according to the Federal Trade Commission. At least 26% of adults in the United States were affected by fraudulent transactions, with estimated losses over $180 million dollars a year.
@@ -104,9 +104,54 @@
 										<p> The transactions dataset is the largest, containing all of the individual transaction assigned to each customer's identity. It contains a Fraud column that labels each transaction as fraudulent or legitimate. There are only about ~8400 fraudulent transactions among the 6 million rows of legitimate transactions. 
 										</p>
 
-										<p>Data analysis consisted of exploring the columns of each dataset as well as joining the customer and credit card datasets to the "main" transaction dataset to better see what features to teach a model can be engineered.</p>
+										<p>Data analysis consisted of exploring the columns of each dataset as well as joining the customer and credit card datasets to the "main" transaction dataset to better see what features can be engineered to best train a model. Some of the figures from that analysis are below.
+										</p>
 
-										
+
+										<center>
+										<figure>
+											<img width="100%" src="../images/autoencoder_ccfraud/ccfraud_hour_decimal_amount_trend.png" alt='hour decimal (min and seconds converted to fraction of hour) on x-axis and amount per transaction on y axis. The legitimate transactions are plotted in black, the fraudulent transaction in orange, with a trend line for each overplotted in cyan and red, respectively.'/>
+										<figcaption>Figure 1.</figcaption>
+										</figure>
+										</center>
+
+										<p>Figure 1 above shows the legitimate transaction amounts plotted by their 24 HR time of occurence as well as the occurence and amounts for all of the fraudulent transactions. The data itself doesn't give us much insight, but the rolling median trend lines for each set show some structure. The legitimate transactions show a near a constant trend of amount spent across the entire 24 HR time range, whereas the rolling median amount for the fraudulent transactions shows more activity in the early morning hours and has more variation overall than the legitimate transactions. This quantitative information can be useful to a model to sus out differing characteristics between legitimate and fraudulent transactions.
+										</p>
+
+
+										<center>
+										<figure>
+											<img width="100%" src="../images/autoencoder_ccfraud/
+											ccfraud_card_brand_bar.png" alt='Bar plots of all legitimate and fraudulent transactions grouped by the company each credit card was issued by (Amex, Discover, Mastercard, Visa).'/>
+										<figcaption>Figure 2.</figcaption>
+										</figure>
+										</center>
+
+										<p>Figure 2 shows a bar plot of the total number of transactions grouped first by the credit card company that issued the card used in the transaction: Amex, Discover, Mastercard, and Visa, and secondly splits the total number of transactions into a legit number and fraudulent number. Fraudulent transactions appear to occur more frequently with Mastercard and Visa, moreso than the relative scale of the legitimate transactions between all four card companies. Categorical data like this is useful to a machine learning model to better identify fraudulent transactions.
+										</p>
+
+
+										<center>
+										<figure>
+											<img width="100%" src="../images/autoencoder_ccfraud/
+											customer_merchant_location_match_bar.png" alt='Bar plots at the city, zip-code, and state level showing all transactions and whether the customer location at each level matches the merchant location at the same level. Each bar of transactions is subsequently split into legitimate and fraudulent transactions.'/>
+										<figcaption>Figure 3.</figcaption>
+										</figure>
+										</center>
+
+										<p>Figure 3 is a bar plot showing the total amount of transactions at the city, zip, and state level and whether the customer and merchant location at that level match. Furthermore the bars are split into legitimate and fraudulent transactions. Fraudulent transactions appear to take place more frequently outside of the customer's location at all 3 levels, with the biggest difference at the city, and zip-code level. The state level doesn't display as much difference in the number of fraudulent transactions when the state location doesn't match as opposed to when it does. These features were engineered by me from the categorical columns in the dataset and can serve as custom categorical features for a model to train on.
+										</p>
+
+										<center>
+										<figure>
+											<img width="100%" src="../images/autoencoder_ccfraud/
+											ccfraud_fraud_amounts_by_geographic_location.png" alt='Map plot of the United States with legitimate transactions plotted as blue crosses and fraudulent transactions plotted as red triangles. The red triangles are sized by the total amount of money involved in the fraudulent transactions at each location.'/>
+										<figcaption>Figure 4.</figcaption>
+										</figure>
+										</center>
+
+										<p>Figure 4 is a geographic map plot of the United States illustrating major areas of fraudulent transactions in red triangles, sized by the sum total amount of money involved in the fraudulent transactions. This figure shows that major metropolitan areas on both coast lines, as well in some inlying ares like Chicago, Illinois and Dallas, Texas. It would be too involved to train a machine learning model to consider geographic locations to try and separate out fraudulent transactions. However boolean features as to whether the customer and merchant locations match at different levels can provide the same amount of information without needing a geographic context in a model. This figure was exported from tableau and is available to interact with in a dashboard in my <a href="../projects/data_and_visualizations.html" style="color: #ffff00">Data and Visualizations</a> project page.
+										</p>
 
 
 									</article>
