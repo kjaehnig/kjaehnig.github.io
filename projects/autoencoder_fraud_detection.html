@@ -154,6 +154,57 @@
 										</p>
 
 
+										<p> I engineered 56 features for each transaction, including quantitative features such as the ratio of each customer's income to their total credit card debt, the total time between a transaction and that credit card's last PIN reset, categorical features such as the card brand, customer-merchant location matching at different levels, and simple boolean features such as the error type (if any) present in a transaction. 
+										</p>
+
+										<p> The quantitative features were scaled to unit variance using SciKit-Learn's quantile transformer, which is robust to outliers so as to avoid outlier filtering, as I wanted to keep as many outliers as possible that may be indicative of fraudulent transactions. With over 6 million transactions, I sub-sampled 3 million of the legitimate transactions, and all 8412 fraudulent transactions to be used for my model. This was split into training, validation, and test sets following a 50% : 25% : 25% ratio. The ratio of fraudulent transactions to legitimate transactions in each subset comes out to around 0.5% which I left unmodified for the validation and test sets. The training set had the fraudulent transactions upsampled to constitute 10% of the training set using the Imbalanced Learning python module, IMBLearn. Upsampling up to 10% better helped the model converge towards a better separation of legitimate and fraudulent transactions.   
+										</p>
+
+										<p> I decided to use (as my project title states) an autoencoder neural network architecture as my model of choice. I first attempted to build a straight-forward dense neural network but found the effort not worth the returns. I performed supervised training by giving the autoencoder the fraud labels provided with the data as well as the 56 training features.
+										</p>
+
+										<p> Autoencoders work by stacking two neural networks together to minimize the reconstruction error between the input data and it's copy in the output data. The encoder reduces the dimensionality of the input data to some smaller shape. The decoder takes this smaller dimensional data and reconstructs it to the same shape of the input data. The reconstruction error decreases as the model learns how best to deconstruct the input and reconstruct it later. The model will learn what features are important for the most accurate reconstruction. 
+										</p>
+
+										<p> The final model architecture for the autoencoder I built was relatively simple. A four layer encoder where the data's dimension is reduced from 56 to 32 to 16 and finally to 8. The decoder is the mirror image of the encoder but in reverse, going from 8 to 16 to 32 and back to the original size of 56. The final model architexture is plotted below in figure 5.
+										</p>
+
+										<center>
+										<figure>
+											<img width="100%" src="../images/autoencoder_ccfraud/
+											ccfraud_autoencoder_architecture.png" alt='Vertically oriented schema of the autoencoder architecture used in this project.'/>
+										<figcaption>Figure 5.</figcaption>
+										</figure>
+										</center>
+
+
+										<p> The loss metric used to drive the model's learning was the mean absolute error, which I found performed best compared to the mean squared error, or the binary cross-entropy. I added L1 and L2 regularization terms to the encoder layers, and found the best values for L1, L2, and learning rate by running 100 trials of different values in a random search where each trial model trained for 10 epochs. The best model was trained for a maximum of 30 epochs but stopped training early at 27 epochs as the model was no longer learning further.
+										</p>
+
+										<p> The test sets were fed into this trained model where each transaction has an associated mean absolute error in reconstruction between the encoder and decoder. A threshold in the distribution of the mean absolute error is needed to delineate the mean absolute error that describes legitimate transactions and that of fraudulent transactions. I found the best threshold by performing kernel density estimation on the values of predicted mean absolute errors and found the minima between the two peaks of the distribution. Figure 6 is a plot of that mean absolute error distribution for the test set with the threshold labeled.
+										</p>
+
+
+										<center>
+										<figure>
+											<img width="100%" src="../images/autoencoder_ccfraud/
+											autoencoder_prediction_loss.png" alt='KDE plot of distribution of mean absolute error for test set after training autoencoder.'/>
+										<figcaption>Figure 6.</figcaption>
+										</figure>
+										</center>
+
+
+										<p> I convert these mean absolute error values to class labels by applying this threshold to the test set predictions. I quantify model performance by constructing a confusion matrix of the autoencoder's predicted labels to the true labels in the test set below in Figure 7. Overall, the autoencoder performed well. The model achieved a 94% (700,656) true positive rate in identifying legitimate transactions and a 95% (1993) true negative rate in identifying fraudulent transactions. The nature of fraudulent transactions being rare but not impossible means that the percentages of false positives and false negatives have to be considered as more than percentages. Only 6% of legitimate transactions were classified as fraudulent, but that amounts to over 47,000 transactions. The 5% false negative fraudulent identifications amount to only 110 fraudulent transactions pass by without being detected. Ultimately the decision to further redesign the model to produce less false positives or less false negatives is up to me. Do I want to better identify legitimate transactions so as to conserve the resources in investigating possible fraud? Or do I want to better identify fraudulent transactions no matter how many other legitimate transactions get flagged, resulting in more resource usage?
+										</p>
+
+
+										<center>
+										<figure>
+											<img width="100%" src="../images/autoencoder_ccfraud/
+											autoencoder_confusion_matrix.png" alt='confusion matrix for autoencoder fraud detection model'/>
+										<figcaption>Figure 7.</figcaption>
+										</figure>
+										</center>
 									</article>
 								</div>
 <!-- 									<section>
