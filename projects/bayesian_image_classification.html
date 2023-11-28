@@ -75,7 +75,7 @@
 											</ul>
 										</header>
 
-									<p> I figured the next step I wanted to take after constructing a dense neural network that classified a vector of mono color values for the MNIST dataset (<a href="bayesian_neural_network.html">Bayesian Neural Network Project Page</a>) is a 2-dimensional convolutional neural network. A convolutional neural network does not flatten the images to be some vector of normalized pixel values. The image itself is taken in and important features are captured. A convolutional neural network uses kernels that pass over the training images and highlight important distinguishing features between classes.
+									<p> I figured the next step I wanted to take after constructing a dense neural network that classified a vector of mono color values for the MNIST dataset (<a href="bayesian_neural_network.html"  style="color: #ffff00">Bayesian Neural Network Project Page</a>) is a 2-dimensional convolutional neural network. A convolutional neural network does not flatten the images to be some vector of normalized pixel values. The image itself is taken in and important features are captured. A convolutional neural network uses kernels that pass over the training images and highlight important distinguishing features between classes.
 	                                </p> 
 
 	                                <p> The kernel sliding over the image pixel by pixel is the 'convolution' that takes place in this type of neural network. I've linked a useful GIF (Figure 0.) that illustrates a 3x3 pixel kernel sliding over a 6x6 pixel image. After the convolution takes place, the resultant transformed image is now a 4x4 pixel image. The 4x4 pixel image is a composition of the important features within the kernel as it slid over the original image and converted them into single pixel values. Of course, this assumes the kernel parameters used correctly capture important image features. Larger resolution images require multiple layers, each with their own kernels, in order to capture all of the relevant features that distinguish each image class from one another. 
@@ -101,6 +101,39 @@
 
 									<p> I used the keras 'image_dataset_from_directory' utility function to act as a batch generator to the neural network. The generators free up memory by directly loading each new batch without needing to load the entire dataset into local memory. I ran this training on my personal desktop which is running a Ryzen 5600x processor, an RTX 3060 Ti GPU, and 32gb of 3200hz ram. I managed to get CUDA installed on windows to take full advantage of the GPU compute capabilities. 
 									</p>
+
+
+									<header> 
+										<p>The Convolutional Neural Network</p>
+									</header>
+
+									<p> Convolutional neural network architectures can take on a <em>very</em>
+									wide assortment of designs. Researching into notable CNN architectures for an initial schematic I can use I came across names like 'AlexNet', 'LeNet', 'ResNet', and a lot of others. The architecture I decided to implement, at least in concept, is the VGGnet architecture.
+									</p>
+
+									<p> 'VGG' stands for 'Visual Geometry Group', and was developed and presented in the paper <a href="https://arxiv.org/pdf/1409.1556.pdf" style="color: #ffff00">'Very Deep Convolutional Networks for Large-Scale Image Recognition'</a> in 2015. The architecture can be best summarized as stacked groups of convolutional layers with the same increasing number of filters per stack and a set of dense layers at the end, with max-pooling layers in between to reduce image size. So for the Intel images which are 150x150 pixels in size, the first stack could be 3 convolutional layers with 16 filters each, followed by a 2x2 max-pooling layer which halves the image size to 75x75 pixels. These resultant 75x75 pixel images are then fed into another stack of 3 convolutional layers with 32 filters each, and so on. Once sufficient convolutional stacks are created, the 2-dimensional data is flattened to a 1-dimensional vector that is fed to dense layers with some number of nodes in each, ending in a 6 node output layer that outputs the image classification prediction (or in the Bayesian case, 6 probabilities for each class, all summing to 1.0) 
+									</p>
+
+									<p> For the Intel images I layered 5 stacks of 3 convolutional layers, starting at 32 filters, increasing by a factor of 2 until the last stack has 512 filters. In between these stacks are max-pooling layers that decrease the dimensions of the images. The first max-pooling has a size 2 and a stride of 2 (or written as (2,2) ) , which halves the total pixel dimensions. The next max-pooling layers are (3,3), (2,2), (2,2). These bring the image side length from 150px to 75px to 25px to 12px down to 6px. 
+									</p>
+
+									<p> After the last convolutional layer stack is one more (3,3) max-pooling layer to bring the size down to 2px x 2px. I added this last max-pooling layer to help with memory usage, as otherwise the resultant output would be 6x6x512 sized. I flatten output, which had 512 filters, producing a 2x2x512 sized one-dimensional vector which I feed into two dense layers, with 1024 nodes and then 512 nodes. The output layer has 6 nodes as we have 6 classes of images.
+									</p>
+
+									<p> The figure below is a general schematic for this CNN that I made in the AlexNet style using the website <a href="https://alexlenail.me/NN-SVG/AlexNet.html" style="color: #ffff00">https://alexlenail.me/NN-SVG/AlexNet.html</a>. I say general schematic because the dropout layers I added to both convolutional and dense layers are not visualized though I added text to demarcate where the dropout layers (blue) and the max-pool layers (orange) are in the model using arrows.
+									</p>
+
+									<center>
+									<figure>
+										<img width="100%" src="../images/intel_bayes_cnn/
+										intel_bayes_vgg_neural_network_architecture_schema.png" alt='Visual diagram of the VGG style CNN constructed here with labels and arrows pointing to location of dropout and max-pool layers.'/>
+									<figcaption>Figure 2.</figcaption>
+									</figure>
+									</center>
+
+									<p> I will note that this is the -Final- model architecture, and not originally designed as such on the first attempt. The first iteration was only the convolutional layers, max-pooling layers, and dense layers. Also unlike the <a href="../projects/bayesian_neural_network.html" style="color: #ffff00">dense Bayesian neural network</a> to classify MNIST digit image vectors, there are non-Bayesian layers in this CNN. This was a decision based on saving memory so this model could run without crashing my Desktop's ram or exceeding the memory of my GPU, as Bayesian layers typically require 2x as many parameters, as we are not just fitting to single numerical weights but 2 parameters (if assuming Gaussian distributions) for each weight value to denote the mean and standard deviation. The first stack of 3 convolutional layers are Bayesian layers using the Tensorflow-Probability 'Convolutional2DReparameterization', and the last three dense layers are Bayesian using the Tensorflow-Probability 'DenseReparameterization'.
+									</p>
+
 								</div>
 <!-- 									<section>
 										<div class="col-12">
