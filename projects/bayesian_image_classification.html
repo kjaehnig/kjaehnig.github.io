@@ -131,11 +131,74 @@
 									</figure>
 									</center>
 
-									<p> I will note that this is the -Final- model architecture, and not originally designed as such on the first attempt. The first iteration was only the convolutional layers, max-pooling layers, and dense layers. Also unlike the <a href="../projects/bayesian_neural_network.html" style="color: #ffff00">dense Bayesian neural network</a> to classify MNIST digit image vectors, there are non-Bayesian layers in this CNN. This was a decision based on saving memory so this model could run without crashing my Desktop's ram or exceeding the memory of my GPU, as Bayesian layers typically require 2x as many parameters, as we are not just fitting to single numerical weights but 2 parameters (if assuming Gaussian distributions) for each weight value to denote the mean and standard deviation. The first stack of 3 convolutional layers are Bayesian using the Tensorflow-Probability 'Convolutional2DReparameterization' layer, and the last three dense layers are Bayesian using the Tensorflow-Probability 'DenseReparameterization'.
+									<p> I will note that this is the -Final- model architecture, and not initially designed with dropout, regularization or pre-processing layers. The first iteration was only the convolutional layers, max-pooling layers, and dense layers. Also unlike the <a href="../projects/bayesian_neural_network.html" style="color: #ffff00">dense Bayesian neural network</a> to classify MNIST digit image vectors, there are non-Bayesian layers in this CNN. This was a decision based on saving memory so this model could run without crashing my Desktop's ram or exceeding the memory of my GPU, as Bayesian layers typically require 2x as many parameters, as we are not just fitting single value weights but 2 parameters per weight that describes that weight's mean and variance (if assuming Gaussian distributions). The first stack of 3 convolutional layers are Bayesian using the Tensorflow-Probability 'Convolutional2DReparameterization' layer, and the last three dense layers are Bayesian using the Tensorflow-Probability 'DenseReparameterization'.
 									</p>
 
-									<p> 
+									<p> I added scaling, and 'flip' layers to perform both image RGB scaling as well as data-augmentation within the model, such that later images that I want to test the model on will only have to be in the 150x150x3 format. Both of these layers are available within the Tensorflow Keras API and easy to add. The scaling layer ensures that the image RGB values are scaled from their original [0-255] pixel values to the more machine-friendly [0-1] float values. The flip layers has an argument for 'horizontal', 'vertical', and 'horizontal_and_vertical' flips to images before running through the trainable parts of the model, and produce a more robust model in the end.
 									</p>
+
+									<p>
+									I utilized the Adam optimizer as it offers the best default performance and only set the initial learning rate to 1e-4. I also implemented a callback called 'ReduceOnPlateau' that will reduce the learning rate by some factor after so many epochs without improvement in the metric of your choosing. I set it to decrease learning rate by a factor of 0.95 every 5 epochs that the validation accuracy did not increase. The CNN will be fit for 100 epochs with a batch size of 64 images per epoch step for both training and validation sets. I also added 'EarlyStopping' to stop the model fit after 10 epochs of no improvement in the validation accuracy after the 25th epoch in order to prevent the model from over fitting if left to run for all 100 epochs.
+									</p>
+
+									<p>
+									The dropout rates, as well as the regularization values were found by starting with really low values and adjusting them one at a time while observing model validation accuracy. I didn't implement a grid search or a random search to tune these parameters even though it is possible with the keras_tuner module. I might try to find best parameters later on another Bayesian CNN using smaller image sets such as the CIFAR-10 dataset. Eventually I found that having spatial dropouts of 20% after each stack of convolutional layers and 50% dropout after the first 2 dense layers provided the best results in training, and validation accuracy. The L1 and L2 regularizations were applied to the first two dense layers only and both had values of 5e-4. Figure 3 is a plot of the model accuracy (train and validation) as well as model loss (train and validation) as a function of epochs. There were 87 training epochs before the EarlyStopping callback stopped training from proceeding. Overall the model looks well behaved, showing a consistent similarity between the training and test performance in the accuracy and loss histories during training.
+									</p>
+
+									<center>
+									<figure>
+										<img width="100%" src="../images/intel_bayes_cnn/
+										intel_bayes_model_hist.png" alt='Plot of the accuracy (top panel) and the loss (bottom panel) as a function of training epoch for the training set and the test set.'/>
+									<figcaption>Figure 3.</figcaption>
+									</figure>
+									</center>
+
+
+									<p>
+										I evaluate the model with the test set of about 3000 images and find the model to have an accuracy of about 84.9%, so not great but not terrible also. This accuracy might be raised with more stacked convolutional layers, but I decided against this as this model was already pushing ~80MB of parameters. With the test set I also generate predictions of these images, running 200 draws from the model, each producing some probability on a particular image being a particular class (Building, Sea, Glacier, etc...). The median of these probability distributions for each image are selected as the 'Label' that we compare against the actual class labels, with which we can construct a 6 class confusion matrix, which I plot below in Figure 4. The resulting confusion matrix looks pretty good, given that the model has an 84.9% accuracy. 
+									</p>
+
+									<center>
+									<figure>
+										<img width="100%" src="../images/intel_bayes_cnn/
+										intel_bayes_model_confusion_matrix.png" alt='Confusion matrix plot using test set predicted labels and actual labels for all 6 classes.'/>
+									<figcaption>Figure 4.</figcaption>
+									</figure>
+									</center>
+
+									<p>
+										Confusion matrix plots are fun to use because they can provide insight into how well (or not well) the model performs each type of classification. The 'Building' class of images seem to be the weakest classification performance of the model, with only 76% of images correctly classified. Sliding over from the top left most square to the top right most are the fractions of 'Building' images that were incorrectly classified as another type of image. There are 16% of these incorrect predictions labeled with the 'street' label. Note however that the model doesn't have a similar type of issue correctly labeling streets. There are 91% of 'street' images correctly classified, with only 5% being labeled 'building'. The top performance classification, with 96% correctly labeled images, are with the 'forest' images. 
+									</p>
+
+									<p>
+										There are other weakpoints in my model when it comes to classifying these images. There are 11% 'mountain' images that are erroneously classified as 'glaciers' -and- 11% of 'glacier' images are mis-classified as 'mountains'. This may indicate some issue that the model has with discerning these types of images, possibly because glaciers are often found in mountains. Similarly 7% of 'glacier' images are mistakenly labeled as 'sea' images and vice-versa. This might arise due to the similarity of these types of images as both can exhibit a smooth, flat appearance, which might necessitate a deeper model to properly separate. These comparisons between predicted and actual labels are useful to assess the performance of your model, but confusion matrices can be made with non-Bayesian classifiers. What can we infer from the probability distributions our model can generate?
+									</p>
+
+
+									<center>
+									<figure>
+										<img width="100%" src="../images/intel_bayes_cnn/
+										intel_bayes_model_entropy_dist.png" alt='Side by side plot of the entropy distributions for the correctly labeled (left) and incorrectly labeled (right) images.'/>
+									<figcaption>Figure 5.</figcaption>
+									</figure>
+									</center>
+
+									<p>
+										I plotted the entropy distributions for the correctly and incorectly classified images in Figure 5 above. The entropy can be considered as the amount of information you have about what kind of image the model is processing. The more information, the lower the probability, the higher the possibility of this image being any other class. This relation also works in reverse, with a higher probability indicating that there are not many other possibilities for the image label. A 1.0 probability on a correct prediction of a 'mountain' image means there is no probability for any other class. The image is certainly that of a mountain. The correctly classified images have a skewed distribution, toward the lower entropy, higher probability end, with a rightward tail towards higher entropy. The incorrectly classified images have a more uniform distribution, indicating the model is unsure about what these images are, and reflects that by outputting broader probability distributions in its predictions. The entropy distributions can also be separated by class; the per class entropy distributions for the correctly and incorrectly classified images are plotted in the box-whisker plot in Figure 6.
+									</p>
+
+									<center>
+									<figure>
+										<img width="100%" src="../images/intel_bayes_cnn/
+										intel_bayes_model_entropy_per_class_dist.png" alt='Box-whisker plots of the entropy for the correctly and incorrectly classified images, separated into distributions per class.'/>
+									<figcaption>Figure 6.</figcaption>
+									</figure>
+									</center>
+
+									<p>
+										The gold line in each box whisker indicates the median of the individual class entropy distributions. The top and bottom edges of the boxes indicates the 84th and 16th percentiles of the distributions, respectively. The top and bottom whiskers on each box indicate the range of the entropy distribution. The correctly labeled forest images have the smallest plotted box-whisker, which agrees with the forest class images having the highest accuracy in the model. The 'glacier', 'mountain', and 'sea', images have some of the broadest entropy distributions in the correctly classified set. The correctly classified 'street' images have the second smallest entropy distribution. The entropy distributions of the incorrectly classified images also have information on the model's behavior. The broadness of the entropy distributions of the incorrectly classified images is indicative of the model's uncertainty in the classifications. All six of the classes of incorrectly classified images have very broad distribtuions, with their whiskers nearly covering the entire entropy plot range. The 'building' images have the broadest box, which coincides with that class having the lowest accuracy in the test set. This is one of the benefits of a Bayesian network, as the entropy distributions of wrongly classified images also have information on the model's performance. It would be alarming to find an image class that has a very skewed, lower entropy distribution, which could indicate something wrong in the model architecture.
+									</p>
+
 
 								</div>
 <!-- 									<section>
