@@ -1,5 +1,5 @@
 ---
-title: "Spring-semester-2018"
+title: "2018-Spring-Semester"
 collection: teaching
 type: "Graduate Lecture"
 permalink: /teaching/2018-spring-teaching
