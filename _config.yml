@@ -9,8 +9,8 @@
 locale                   : "en-US"
 title                    : "Karl Jaehnig, Ph.D"
 title_separator          : "-"
-name                     : &name "Karl Jaehnig"
-description              : &description "Queer astrophysicist data scientist, AI/ML Instructor"
+name                     : "Karl Jaehnig"
+description              : "Queer astrophysicist data scientist, AI/ML Instructor"
 url                      : https://kjaehnig.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "kjaehnig/kjaehnig.github.io"
@@ -81,7 +81,7 @@ analytics:
 # Site Author
 author:
   name             : "Karl Jaehnig, Ph.D"
-  avatar           : "images/Pro_headshot.jpg"
+  avatar           : "/images/Pro_headshot.jpg"
   bio              : "Queer astrophysicist data scientist"
   location         : "CST, USA"
   employer         :
