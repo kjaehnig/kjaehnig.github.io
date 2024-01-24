@@ -281,7 +281,7 @@ collections:
     output: true
     permalink: /:collection/:path/
   talks:
-    output: False
+    output: True
     permalink: /:collection/:path/
 
 
