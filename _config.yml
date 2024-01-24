@@ -7,10 +7,10 @@
 
 # Site Settings
 locale                   : "en-US"
-title                    : "Karl Jaehnig, Ph.D"
+title                    : "Karl Jaehnig"
 title_separator          : "-"
 name                     : &name "Karl Jaehnig"
-description              : &description "Queer astrophysicist data scientist AI/ML Instructor"
+description              : &description "Personal Website"
 url                      : https://kjaehnig.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "kjaehnig/kjaehnig.github.io"
@@ -80,12 +80,12 @@ analytics:
 
 # Site Author
 author:
-  name             : "Karl Jaehnig, Ph.D"
-  avatar           : "https://github.com/kjaehnig/kjaehnig.github.io/blob/master/images/Pro_headshot.png"
-  bio              : "Queer astrophysicist data scientist, AI/ML Instructor"
+  name             : "Karl(i) Jaehnig, Ph.D"
+  avatar           : "Pro_headshot.png"
+  bio              : "Queer Astrophysicist Data Scientist, AI/ML Instructor"
   location         : "CST, USA"
   employer         :
-  pubmed           : #"https://www.ncbi.nlm.nih.gov/pubmed/?term=john+snow"
+  pubmed           : #""
   googlescholar    : #"http://yourfullgooglescholarurl.com"
   email            :
   researchgate     :  # example: "https://www.researchgate.net/profile/yourprofile"
