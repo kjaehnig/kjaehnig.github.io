@@ -51,7 +51,7 @@ comments:
     reactions_enabled    : # '1' for enabled (default), '0' for disabled
     theme                : # "light" (default), "dark", "dark_dimmed", "transparent_dark", "preferred_color_scheme"
   staticman:
-    branch               : # "master"
+    branch               :  "gh-pages"
     endpoint             : # "https://{your Staticman v3 API}/v3/entry/github/"
 reCaptcha:
   siteKey                :
@@ -163,9 +163,9 @@ exclude:
   - "*.sublime-project"
   - "*.sublime-workspace"
   - vendor
-  # - .asset-cache
+  - .asset-cache
   - .bundle
-  # - .jekyll-assets-cache
+  - .jekyll-assets-cache
   - .sass-cache
   - assets/js/plugins
   - assets/js/_main.js
@@ -183,6 +183,7 @@ exclude:
   # - package-lock.json
   # - Rakefile
   # - README
+  -vendor
   - tmp
   - /docs # ignore Minimal Mistakes /docs
   - /test # ignore Minimal Mistakes /test
