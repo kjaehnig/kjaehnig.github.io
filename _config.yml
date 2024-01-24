@@ -81,7 +81,7 @@ analytics:
 # Site Author
 author:
   name             : "Karl Jaehnig, Ph.D"
-  avatar           : "profile.png"
+  avatar           : "/images/Pro_headshot.jpg"
   bio              : "Queer astrophysicist data scientist"
   location         : "CST, USA"
   employer         :
