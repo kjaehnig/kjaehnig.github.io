@@ -17,4 +17,6 @@ I am excited about advances in AI but I am also keen on contributing to the ethi
 
 When I am not doing work I will usually do some embroidery on a loop or on my converses if I'm not reading. I'll either be doing that or chasing around one (or both) of my two cats, Harry and Vera. Partake in their fluffy stillness when they're not zooming around in goblin-mode.
 
-![Harry being a baby on the carpet despite being 10yo (he is baby though).](images/harry_as_baby.jp2) "Harry 10yo") ![Vera being the scrunchy black void on the carpet when she doesn't get her way.] (images/vera_as_baby.jp2) "Vera 5yo")
+![Harry (10yo)](../images/harry_as_baby.jpg) "Harry 10yo") 
+![Vera (5yo)](../images/vera_as_baby.jpg) "Vera 5yo")
+
