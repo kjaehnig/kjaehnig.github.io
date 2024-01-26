@@ -57,7 +57,7 @@ yandex_site_verification :
 
 # Social Sharing
 twitter:
-  username               : &twitter
+  username               : #&twitter
 facebook:
   username               :
   app_id                 :
@@ -201,7 +201,7 @@ defaults:
       read_time: true
       comments: true
       share: true
-      related: true
+      # related: true
   # _pages
   - scope:
       path: ""
