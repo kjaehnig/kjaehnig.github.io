@@ -23,5 +23,4 @@ What's a "Camera Obscura"? Its a technology that has technically existed since t
 
 The fun thing about camera obscuras is that the pinhole effect which causes the light rays to produce an inverted image opposite the real object can occur through _any_ small pinhole. This means a solar eclipse will be observable with everyday objects if the pinholes are small enough.
 
-|![camera-obscura on concrete](/images/camera_obscura_leaves.jpg "camera obscura solar eclipse through leaves")|![camera-obscura on car hood](/images/camera_obscura_on_hood.jpg "camera obscura occuring on car hood")|
-![camera-obscura through blinds](/images/camera_obscura_blinds.jpg "camera obscura occuring through window blinds")|
+|![camera-obscura on concrete](/images/camera_obscura_leaves.jpg "camera obscura solar eclipse through leaves")|![camera-obscura on car hood](/images/camera_obscura_on_hood.jpg "camera obscura occuring on car hood")|![camera-obscura through blinds](/images/camera_obscura_blinds.jpg "camera obscura occuring through window blinds")|
