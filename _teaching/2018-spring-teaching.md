@@ -2,9 +2,9 @@
 title: "2018-Spring-Astro-Lab"
 collection: teaching
 type: "Astro Lab"
-permalink: /teaching/2018-spring-lab
+permalink: /teaching/2018-spring-teaching
 venue: "Vanderbilt University"
-date: 2018-spring
+date: 2018-04-01
 location: "Nashville, TN, USA"
 ---
 {% include base_path %}
