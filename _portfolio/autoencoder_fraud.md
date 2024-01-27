@@ -1,6 +1,6 @@
 ---
 title: "Autoencoder Neural Network"
-excerpt: "Detecting fraudulent credit card transactions<br/><img src='/images/fraud_autoencoder/hack-fraud-card-code-computer-credit.jpg'>"
+excerpt: "Detecting fraudulent credit card transactions<br/><img width="300" src='/images/fraud_autoencoder/hack-fraud-card-code-computer-credit.jpg'>"
 collection: portfolio
 ---
 
