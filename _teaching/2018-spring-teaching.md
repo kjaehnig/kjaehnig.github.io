@@ -23,3 +23,10 @@ There was also a once a week observational laboratory where I would take my clas
 
 
 ![Labeled Telescope](/images/labeled_celestron_telescope.jpg "labeled telescope"){: .align-center width="500"}
+
+
+While the downtown Nashville light polution was ever present near Vanderbilt, it was still possible to get some amazing images on these telescopes with phone cameras if you positioned them just right. This was extremely popular with my students as it bridged the separation between seeing astronomical images put out by space-telescopes or research publications and instead seeing these wonderous celestial bodies with your own eyes. In addition to making out the rings of Saturn it was possible to catch the 4 Galilean moons of Jupiter. My students were a bit surprised to find that the Moon through a telescope is **VERY** bright.
+
+|:-:|:-:|:-:|
+|My pic of Jupiter|My pic of the Moon|My pic of Saturn|
+|![Jupiter and its moons](/images/my_phone_image_of_jupiter.jpg "Phone camera image of Jupter + 4 Galilean moons")|![Moon](/images/my_phone_image_of_the_moon.jpg "Phone camera image of the Moon")|!["Saturn and its rungs"](/images/my_phone_image_of_saturn.jpg "Phone camera image of Saturn")|
