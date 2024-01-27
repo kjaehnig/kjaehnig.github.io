@@ -20,3 +20,5 @@ When I am not doing work I will usually do some embroidery on a loop or on my co
 ![Harry (10yo)](https://www.github.com/kjaehnig/kjaehnig.github.io/blob/master/images/harry_as_baby.png) 
 ![Vera (5yo)](https://www.github.com/kjaehnig/kjaehnig.github.io/blob/master/images/vera_as_baby.png)
 
+|:-:|:-:|
+|![Harry, 10](https://www.github.com/kjaehnig/kjaehnig.github.io/blob/master/images/harry_as_baby.png)|![Vera, 5](https://www.github.com/kjaehnig/kjaehnig.github.io/blob/master/images/vera_as_baby.png)|
