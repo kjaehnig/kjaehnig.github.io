@@ -22,4 +22,4 @@ I taught of a small cohort of undergraduates (N=25-30) for the spring semester i
 There was also a once a week observational laboratory where I would take my class to the top of a Vanderbilt parking garage and setup 10-15 8in reflector telescopes to teach both the mechanical aspects of astronomy observations, as well as giving the students hands-on experience with night-sky observing. This was extremely beneficial to the students as it helped them gain a first-hand appreciation for the night sky. 
 
 
-![Labeled Telescope](/images/labeled_celestron_telescope.jpg "labeled telescope"){: .align-center}
+![Labeled Telescope](/images/labeled_celestron_telescope.jpg "labeled telescope"){: .align-center width="500"}
