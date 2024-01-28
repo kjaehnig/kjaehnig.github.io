@@ -1,6 +1,6 @@
 ---
-title: "Bayesian Neural Network"
-excerpt: "Bayesian neural network trained on the MNIST digit dataset using Tensorflow + Keras. <br/><img src='/images/bayesian_nn/mnist_dense_3d_schema.jpeg'>"
+title: "Bayesian Neural Networks"
+excerpt: "Trained on the MNIST digit dataset with uncertainty estimates in Tensorflow. <br/><img src='/images/bayesian_nn/mnist_dense_3d_schema.jpeg'>"
 collection: portfolio
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: "Bayesian Image Classification"
-excerpt: "Deep convolutional neural network that can classify landscape images but also how sure/unsure it is about each classification.<br/><img src='/images/bayesian_cnn/intel_bayes_vgg_neural_network_architecture_schema.png'>"
+excerpt: "Deep convolutional neural network that can classify landscape images with classification uncertainties.<br/><img src='/images/bayesian_cnn/intel_bayes_vgg_neural_network_architecture_schema.png'>"
 collection: portfolio
 ---
 
