@@ -18,4 +18,9 @@ Automated medical image diagnoses streamlines the usage of human medical resourc
 
 However a neural network classifier that outputs just a 'positive' or 'negative' diagnosis is **not** gonna cut it. It's important to understand here that non-Bayesian neural networks output classifications which do not take into account either the model uncertainty (otherwise called _epistemic uncertainty_), or the uncertainty in the image data itself (called _aleatoric uncertainty_).
 
+A Bayesian neural network (_hereafter_ BNN) models its weights and biases as distributions and not as single values. A BNN can appropriately define the shape of these distributions which propogate into its classifications. The BNN's quantifiable uncertainty on its classifications provides certain benefits such as enhanced confidence in predictions, adaptability to a broad array of data of differing quality, and clearer insight into how the BNN functions with any _False Positives_ or _False Negatives_, to name a few.
+
+I used the Tensorflow-Probability python library to construct my Bayesian convolutional neural network (_hereafter_ BCNN) with probabilistic layers in the Tensorflow sequential model framework. 
+
+
 **STILL UNDER CONSTRUCTION**{: .notice--success}
