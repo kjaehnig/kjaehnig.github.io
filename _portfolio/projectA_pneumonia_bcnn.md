@@ -3,6 +3,7 @@ title: "Probabilistic Detection of Pneumonia in Chest X-Rays"
 excerpt: "Sometimes accuracy isn't everything. <br/><img src='/images/pneumonia_cxr_nn/pneumonia_project_cover.png'>"
 collection: portfolio
 ---
+{%include base_path%}
 
 Pneumonia is an infection wherein one or both of the lungs are incapacitated by fluids in the air-sacs of the lung. Pneumonia accounts for about 4 million deaths yearly across all age groups. Pneumonia is usually diagnosed by examination of chest X-rays wherein Pneumonia appears as cloudiness within the lungs.
 
