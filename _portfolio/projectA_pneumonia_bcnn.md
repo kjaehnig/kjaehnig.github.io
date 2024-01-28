@@ -13,8 +13,6 @@ Pneumonia is an infection wherein one or both of the lungs are incapacitated by 
     <img width="100%" src="/images/pneumonia_cxr_nn/normal_pneumonia_cxr.png" alt='normal chest x-ray sitiated next to a chest x-ray exhibiting pneumonia'/>
 </figure>
 </center>
-<br />
-
 
 Automated medical image diagnoses streamlines the usage of human medical resources. In this case a radiologist who visually inspects the X-rays to see if there is the presence of pneumonia. In the manual case this radiologist would give equal attention to each image they receive, and issuing a diagnosis or lack thereof. It's more important for the radiologis to give their attention to the possible pneumonia x-rays. An AI system that could pre-classify chest X-rays could expedite the diagnostic workflow of the radiologist and reduce times between examination, diagnosis, and most importantly, treatment. 
 
