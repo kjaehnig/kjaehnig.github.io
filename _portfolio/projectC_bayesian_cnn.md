@@ -4,9 +4,9 @@ excerpt: "Deep convolutional neural network that can classify landscape images w
 collection: portfolio
 ---
 
-## How well can a neural network tell the difference between streets and buildings?
+## How _well_ can a neural network tell the difference between streets and buildings?
 
-I figured the next step I wanted to take after constructing a dense neural network that classified a vector of mono color values for the MNIST dataset (<a href="https://moly-synchro.github.io/portfolio/bayesian_neural_network/"  style="color: #458900">Bayesian Neural Network Project Page</a>) is a 2-dimensional convolutional neural network. A convolutional neural network does not flatten the images to be some vector of normalized pixel values. The image itself is taken in and important features are captured. A convolutional neural network uses kernels that pass over the training images and highlight important distinguishing features between classes.
+I figured the next step I wanted to take after constructing a dense neural network that classified a vector of mono color values for the MNIST dataset (<a href="https://kjaehnig.github.io/portfolio/projectD_bayesian_neural_network/"  style="color: #458900">Bayesian Neural Network Project Page</a>) is a 2-dimensional convolutional neural network. A convolutional neural network does not flatten the images to be some vector of normalized pixel values. The image itself is taken in and important features are captured. A convolutional neural network uses kernels that pass over the training images and highlight important distinguishing features between classes.
 
 The kernel sliding over the image pixel by pixel is the 'convolution' that takes place in this type of neural network. I've linked a useful GIF that illustrates a 3x3 pixel kernel sliding over a 6x6 pixel image below. After the convolution takes place, the resultant transformed image is now a 4x4 pixel image. The 4x4 pixel image is a composition of the important features within the kernel as it slid over the original image and converted them into single pixel values. Of course, this assumes the kernel parameters used correctly capture important image features. Larger resolution images require multiple layers, each with their own kernels, in order to capture all of the relevant features that distinguish each image class from one another. 
 
