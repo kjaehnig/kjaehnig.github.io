@@ -26,9 +26,9 @@ I choose to orient this project on maximizing the detection rate of chest x-rays
 
 This means that the primary metric of performance for this BCNN will not be accuracy, which is typically written as
 
-'''math
+```math
 accuracy = TP + TN \over TP + TN + FP + FN 
-'''
+``` 
 where TP, TN, FP, and FN stand for True Positive, True Negative, False Positive, and False Negative, respectively.
 
 
