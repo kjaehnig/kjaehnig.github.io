@@ -26,11 +26,14 @@ I choose to orient this project on maximizing the detection rate of chest x-rays
 
 This means that the primary metric of performance for this BCNN will not be accuracy, which is typically written as
 
-```math
-accuracy = TP + TN \over TP + TN + FP + FN 
-``` 
-where TP, TN, FP, and FN stand for True Positive, True Negative, False Positive, and False Negative, respectively.
+$$
+Accuracy = TP + TN \over TP + TN + FP + FN  
+$$
+where TP, TN, FP, and FN stand for True Positive, True Negative, False Positive, and False Negative, respectively. Instead we want to focus the metrics, _Precision_ and _Recall_, which are defined as follows:
 
+$$
+{Precision = TP \over TP + FP},         {Recall = TP \over TP + FN}
+$$
 
 **STILL UNDER CONSTRUCTION**{: .notice--success}
 
