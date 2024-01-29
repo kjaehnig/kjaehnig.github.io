@@ -24,8 +24,11 @@ I used the Tensorflow-Probability python library to construct my Bayesian convol
 
 I choose to orient this project on maximizing the detection rate of chest x-rays that exhibit Pneumonia and minimizing the occurance of False Negatives, that is, where a chest x-ray which has Pneumonia is classified as 'Normal' (this is also called a Type II error). I base this decision on the discrepancy between the real-world 'cost' of a False Negative and a False Positive when it comes to disease/condition detection. Untreated Pneumonia can be deadly, especially amongst the young, the old, and the immunocompromised. So ensuring that as many of the positive cases get the **correct** diagnosis is the goal.
 
-This means that the primary metric of performance for this BCNN will not be accuracy, which is typically written as 
-$$ TP + TN \over TP + TN + FP + FN $$ 
+This means that the primary metric of performance for this BCNN will not be accuracy, which is typically written as
+
+'''math
+accuracy = TP + TN \over TP + TN + FP + FN 
+'''
 where TP, TN, FP, and FN stand for True Positive, True Negative, False Positive, and False Negative, respectively.
 
 
