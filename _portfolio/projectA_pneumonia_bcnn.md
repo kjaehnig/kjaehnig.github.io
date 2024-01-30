@@ -30,11 +30,14 @@ $$
 Accuracy = {TP + TN \over TP + TN + FP + FN}
 $$
 
-where TP, TN, FP, and FN stand for True Positive, True Negative, False Positive, and False Negative, respectively. Instead we want to focus the metrics, _Precision_ and _Recall_, which are defined as follows:
+where TP, TN, FP, and FN stand for True Positive, True Negative, False Positive, and False Negative, respectively. Instead I focus on the metrics, _Sensitivity_ and _Specificity_, which are defined as follows:
 
 $$
-Precision = {TP \over TP + FP},         Recall = {TP \over TP + FN}
+Sensitivity = {TP \over TP + FN},         Specificity = {TN \over TN + FP}
 $$
+
+These are typically the metrics used to evaluate the diagnostic potential of a model in a medical setting. Sensitivity can be summarized as 'How many people with Pneumonia were given a positive test result (TP)? Specicifity can be summarized as 'How many healthy people were given negative test results (TN)?' In this project sensitivity is the more focused on metric, as it reflects how many people with Pneumonia would be detected so as to receive treatment.
+
 
 **STILL UNDER CONSTRUCTION**{: .notice--success}
 
