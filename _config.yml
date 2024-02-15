@@ -9,7 +9,7 @@
 locale                   : "en-US"
 title                    : "Karl Jaehnig"
 title_separator          : "-"
-name                     : &name "Karl Jaehnig"
+name                     : &name "Karl Jaehnigs"
 description              : &description "Personal Website"
 url                      : https://kjaehnig.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
