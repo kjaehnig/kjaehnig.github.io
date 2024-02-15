@@ -82,9 +82,7 @@ analytics:
 author:
   name             : "Karl(i) Jaehnig, Ph.D"
   avatar           : "Pro_headshot.png"
-  bio              : |+ "Ph.D. Astrophysicist 
-			 Data Scientist
-			 AI/ML Instructor"
+  bio              : "Ph.D. Astrophysicist \nData Scientist \nAI/ML Instructor"
   location         : "CST, USA"
   employer         :
   pubmed           : #""
