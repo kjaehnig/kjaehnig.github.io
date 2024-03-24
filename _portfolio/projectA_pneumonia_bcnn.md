@@ -38,14 +38,14 @@ the black bordered box below.
 <div align="center">
     <div style="border: 8px solid black; display: inline-block; padding: 4px;">
 
-**Description** "We collected and labeled a total of 5,232 chest X-ray images
+<b>Description:</b> "We collected and labeled a total of 5,232 chest X-ray images
 from children, including 3,883 characterized as depicting pneumonia 
 (2,538 bacterial and 1,345 viral) and 1,349 normal, from
 a total of 5,856 patients to train the AI system. The model was
 then tested with 234 normal images and 390 pneumonia images
 (242 bacterial and 148 viral) from 624 patients." 
 
-**Labeling:** "For the analysis of chest X-ray images, all chest radiographs were 
+<b>Labeling:</b> "For the analysis of chest X-ray images, all chest radiographs were 
 initially screened for quality control by removing all low quality or
 unreadable scans. The diagnoses for the images were then graded by two 
 expert physicians before being cleared for training the AI system. In 
@@ -53,6 +53,7 @@ order to account for any grading errors, the evaluation set was also
 checked by a third expert."
     </div>
 </div>
+
 
 A neural network classifier that only outputs a ‘positive’ or 
 ‘negative’ diagnosis is not gonna cut it. It’s important to understand 
@@ -105,6 +106,12 @@ model I used here is plotted in the figure after this paragraph.
 alt='image of efficientnet-b6 architecture'/>
 </figure>
 
+I loaded the resnet50 weights that exist for this model, not including the final layers
+used for the final classification, as this is where I would append my Bayesian dense layers
+to perform Bayesian classification on the extracted features of the chest X-rays. The chest
+X-ray images were imported using the Tensorflow-Keras *image_dataset_from_directory*
+in order to save on local memory on my PC. I am importing the Pneumonia chest X-rays in a 
+256x256 pixel dimensions, with 3-channel RGB. 
 
 **STILL UNDER CONSTRUCTION**{: .notice--success}
 
