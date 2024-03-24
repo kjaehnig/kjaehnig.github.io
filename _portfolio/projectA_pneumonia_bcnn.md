@@ -1,11 +1,15 @@
 ---
-title: "Probabilistic Detection of Pneumonia in Chest X-Rays"
-excerpt: "Sometimes accuracy isn't everything. <br/><img src='/images/pneumonia_cxr_nn/pneumonia_project_cover.png'>"
+title: "Bayesian Transfer-Learning Feature Extraction"
+excerpt: "Detecting Pneumonia in chest X-rays.<br/><img src='/images/pneumonia_cxr_nn/pneumonia_project_cover.png'>"
 collection: portfolio
 ---
 {%include base_path%}
 
-Pneumonia is an infection wherein one or both of the lungs are incapacitated by fluids in the air-sacs of the lung. Pneumonia accounts for about 4 million deaths yearly across all age groups. Pneumonia is usually diagnosed by examination of chest X-rays wherein Pneumonia appears as cloudiness within the lungs.
+Pneumonia is an infection wherein one or both of the lungs are 
+incapacitated by fluids in the air-sacs of the lung. Pneumonia accounts 
+for about 2 million deaths yearly in children under the age of 5. Pneumonia is usually 
+diagnosed by examination of chest X-rays wherein Pneumonia appears as cloudiness 
+within the lungs.
 
 <!-- ![sidebyside xrays or normal/pneumonia chests]('/pneumonia_cxr_nn/normal_pneumonia_cxr.png' "normal chest x-ray next to a chest x-ray exihiting pneumonia") -->
 <center>
@@ -14,29 +18,92 @@ Pneumonia is an infection wherein one or both of the lungs are incapacitated by 
 </figure>
 </center>
 
-Automated medical image diagnoses streamlines the usage of human medical resources. In this case a radiologist who visually inspects the X-rays to see if there is the presence of pneumonia. In the manual case this radiologist would give equal attention to each image they receive, and issuing a diagnosis or lack thereof. It's more important for the radiologis to give their attention to the possible pneumonia x-rays. An AI system that could pre-classify chest X-rays could expedite the diagnostic workflow of the radiologist and reduce times between examination, diagnosis, and most importantly, treatment. 
+Automated medical image diagnoses streamlines the usage of human medical 
+resources. In this case a radiologist who visually inspects the X-rays 
+to see if there is the presence of pneumonia. In the visual inspection case 
+this radiologist would give equal attention to each image they receive, and 
+issuing a diagnosis or lack thereof. It's more important for the 
+radiologist to give their attention to the possible pneumonia x-rays. 
+An AI system that could pre-classify chest X-rays could expedite the 
+diagnostic workflow of the radiologist and reduce times between 
+examination, diagnosis, and more importantly, treatment. 
 
-However a neural network classifier that outputs just a 'positive' or 'negative' diagnosis is **not** gonna cut it. It's important to understand here that non-Bayesian neural networks output classifications which do not take into account either the model uncertainty (otherwise called  _epistemic uncertainty_), or the uncertainty in the image data itself (called  _aleatoric uncertainty_).
+The dataset I use in this project comes from the [Large Dataset of Labeled Optical Coherence Tomography (OCT) and Chest X-Ray Images](https://data.mendeley.com/datasets/rscbjbr9sj/3)
+which looked at using transfer-learning in order to explore the feasibility
+of early detection of specific ailments that are typically diagnosed from
+visual examination of X-rays. I quote the two main sections of text that best
+describe the Pneumonia dataset, as well as the methods of labeling that were used in
+the black bordered box below.
 
-A Bayesian neural network (_hereafter_  BNN) models its weights and biases as distributions and not as single values. A BNN can appropriately define the shape of these distributions which propogate into its classifications. The BNN's quantifiable uncertainty on its classifications provides certain benefits such as enhanced confidence in predictions, adaptability to a broad array of data of differing quality, and clearer insight into how the BNN functions with any False Positives or False Negatives, to name a few.
+<div align="center">
+    <div style="border: 8px solid black; display: inline-block; padding: 4px;">
 
-I used the Tensorflow-Probability python library to construct my Bayesian convolutional neural network (_hereafter_  BCNN) with probabilistic layers in the Tensorflow sequential model framework. The BCNN for this project has a similar structure to the BCNN I built for the Intel landscape image classification <a href="https://kjaehnig.github.io/portfolio/projectC_bayesian_cnn" style="color: #458900">'portfolio project'</a>. That project focused on delivering comparable performance on correctly classifying 6 different types of images. This project will _slightly_ deviate from that. 
+**Description** "We collected and labeled a total of 5,232 chest X-ray images
+from children, including 3,883 characterized as depicting pneumonia 
+(2,538 bacterial and 1,345 viral) and 1,349 normal, from
+a total of 5,856 patients to train the AI system. The model was
+then tested with 234 normal images and 390 pneumonia images
+(242 bacterial and 148 viral) from 624 patients." 
 
-I choose to orient this project on maximizing the detection rate of chest x-rays that exhibit Pneumonia and minimizing the occurance of False Negatives, that is, where a chest x-ray which has Pneumonia is classified as 'Normal' (this is also called a Type II error). I base this decision on the discrepancy between the real-world 'cost' of a False Negative and a False Positive when it comes to disease/condition detection. Untreated Pneumonia can be deadly, especially amongst the young, the old, and the immunocompromised. So ensuring that as many of the positive cases get the **correct** diagnosis is the goal.
+**Labeling:** "For the analysis of chest X-ray images, all chest radiographs were 
+initially screened for quality control by removing all low quality or
+unreadable scans. The diagnoses for the images were then graded by two 
+expert physicians before being cleared for training the AI system. In 
+order to account for any grading errors, the evaluation set was also 
+checked by a third expert."
+    </div>
+</div>
 
-This means that the primary metric of performance for this BCNN will not be accuracy, which is typically written as
+A neural network classifier that only outputs a ‘positive’ or 
+‘negative’ diagnosis is not gonna cut it. It’s important to understand 
+here that non-Bayesian neural networks output classifications that do 
+not take into account either the model uncertainty (otherwise called 
+*epistemic uncertainty*), or the uncertainty in the image data itself 
+(called *aleatoric uncertainty*). 
 
-$$
-Accuracy = {TP + TN \over TP + TN + FP + FN}
-$$
+I decided to employ transfer-learning to perform feature extraction on
+the image data. Transfer-learning for feature extraction consists of 
+using a pre-trained convolutional neural network in order to take 
+advantage of the larger architecture's and training datasets used in
+many pre-trained models. The output of this pre-trained model is then
+flattened and fed through dense layers in order to perform the 
+classification task. 
 
-where TP, TN, FP, and FN stand for True Positive, True Negative, False Positive, and False Negative, respectively. Instead I focus on the metrics, _Sensitivity_ and _Specificity_, which are defined as follows:
+I used tensorflow-probability to construct Bayesian dense layers that
+would perform the classification of the pre-trained model's output. In
+this project the Bayesian model captures the model and data uncertainty, 
+but only in the features extracted by the pre-trained model. 
 
-$$
-Sensitivity = {TP \over TP + FN},         Specificity = {TN \over TN + FP}
-$$
+The pre-trained model I selected was the EfficientNet-B6, version 2. The 
+EfficientNet models were developed in 
+[EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks](https://arxiv.org/abs/1905.11946)
+as a solution to the problem of increasing the performance of neural networks
+by increasing the width, depth, and resolution. This usually leads to the model
+containing more parameters and decreasing efficiency without the performance 
+gains. 
 
-These are typically the metrics used to evaluate the diagnostic potential of a model in a medical setting. Sensitivity can be summarized as 'How many people with Pneumonia were given a positive test result (TP)? Specicifity can be summarized as 'How many healthy people were given negative test results (TN)?' In this project sensitivity is the more focused on metric, as it reflects how many people with Pneumonia would be detected so as to receive treatment.
+EfficientNets perform what as known as 'compound scaling', which makes the
+network scaled up in depth, resolution, and width, without the performance costs
+of a similarly performing but larger parameter model. The compound-scaling that
+gives EfficientNet models their performance comes from stacking specific
+layers into what the authors call 'modules'. These modules and the layers they are
+built with are shown in the figure after this paragraph.
+
+<figure>
+    <img width="100%" src="https://miro.medium.com/v2/resize:fit:2000/format:webp/1*cwMpOJNhwOeosjwW-usYvA.png" 
+alt='image of module types and their layers for efficientnet models'/>
+</figure>
+
+It is now possible to construct an EfficientNet model by stacking these modules
+in different configurations called Blocks. The baseline EfficientNet-B0 has 7 stacked
+configurations of blocks, with each subsequent model designation a note on how many modules
+have been stacked in each of the 7 block sections. The architecture for the EfficientNet-B6
+model I used here is plotted in the figure after this paragraph.
+
+<figure>
+    <img width="100%" src="https://miro.medium.com/v2/resize:fit:1100/format:webp/1*rnhgFRXetwD8PvxhZIpwIA.png" 
+alt='image of efficientnet-b6 architecture'/>
+</figure>
 
 
 **STILL UNDER CONSTRUCTION**{: .notice--success}
