@@ -44,7 +44,7 @@ from children, including 3,883 characterized as depicting pneumonia
 a total of 5,856 patients to train the AI system. The model was
 then tested with 234 normal images and 390 pneumonia images
 (242 bacterial and 148 viral) from 624 patients." 
-
+</br>
 <b>Labeling:</b> "For the analysis of chest X-ray images, all chest radiographs were 
 initially screened for quality control by removing all low quality or
 unreadable scans. The diagnoses for the images were then graded by two 
