@@ -35,7 +35,7 @@ visual examination of X-rays. I quote the two main sections of text that best
 describe the Pneumonia dataset, as well as the methods of labeling that were used in
 the black bordered box below.
 
-<div align="center">
+<div>
     <div style="border: 8px solid black; display: inline-block; padding: 4px;">
 
 <b>Description:</b> "We collected and labeled a total of 5,232 chest X-ray images
@@ -44,7 +44,7 @@ from children, including 3,883 characterized as depicting pneumonia
 a total of 5,856 patients to train the AI system. The model was
 then tested with 234 normal images and 390 pneumonia images
 (242 bacterial and 148 viral) from 624 patients." 
-</br>
+
 <b>Labeling:</b> "For the analysis of chest X-ray images, all chest radiographs were 
 initially screened for quality control by removing all low quality or
 unreadable scans. The diagnoses for the images were then graded by two 
@@ -95,23 +95,27 @@ built with are shown in the figure after this paragraph.
 alt='image of module types and their layers for efficientnet models'/>
 </figure>
 
-It is now possible to construct an EfficientNet model by stacking these modules
-in different configurations called Blocks. The baseline EfficientNet-B0 has 7 stacked
-configurations of blocks, with each subsequent model designation a note on how many modules
-have been stacked in each of the 7 block sections. The architecture for the EfficientNet-B6
-model I used here is plotted in the figure after this paragraph.
+An EfficientNet model can be constructed by stacking these modules in different 
+configurations called Blocks. The baseline EfficientNet-B0 has 7 stacked
+configurations of blocks, with each subsequent model designation a note on how many 
+modules have been stacked in each of the 7 block sections. The architecture for the 
+EfficientNet-B6 model I use is plotted in the figure after this paragraph.
 
 <figure>
     <img width="100%" src="https://miro.medium.com/v2/resize:fit:1100/format:webp/1*rnhgFRXetwD8PvxhZIpwIA.png" 
 alt='image of efficientnet-b6 architecture'/>
 </figure>
 
-I loaded the resnet50 weights that exist for this model, not including the final layers
-used for the final classification, as this is where I would append my Bayesian dense layers
-to perform Bayesian classification on the extracted features of the chest X-rays. The chest
-X-ray images were imported using the Tensorflow-Keras *image_dataset_from_directory*
-in order to save on local memory on my PC. I am importing the Pneumonia chest X-rays in a 
-256x256 pixel dimensions, with 3-channel RGB. 
+I used the 'ImageNet' weights that exist for this model, not including the final layers
+used for the final classification, as this is where I will append my Bayesian dense layers
+to perform Bayesian classification on the extracted features of the images. The chest
+X-ray images are imported using the Tensorflow-Keras *image_dataset_from_directory*
+in order to save on local memory on my PC. I load the Pneumonia chest X-rays 
+and reformat the dimensions to be 256x256 pixels, with 3 channels per image for the 
+R,G,B colors. 
+
+I don't need to do a train-test split on this dataset since it comes pre-apportioned
+with 5216 total images in the training set ()
 
 **STILL UNDER CONSTRUCTION**{: .notice--success}
 
