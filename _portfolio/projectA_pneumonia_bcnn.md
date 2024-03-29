@@ -75,15 +75,15 @@ would perform the classification of the pre-trained model's output. In
 this project the Bayesian model captures the model and data uncertainty, 
 but only in the features extracted by the pre-trained model. 
 
-The pre-trained model I selected was the EfficientNet-B6, version 2. The 
-EfficientNet models were developed in 
+The pre-trained model I selected was the EfficientNetV2S. The 
+EfficientNet models were originally developed in 
 [EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks](https://arxiv.org/abs/1905.11946)
 as a solution to the problem of increasing the performance of neural networks
 by increasing the width, depth, and resolution. This usually leads to the model
 containing more parameters and decreasing efficiency without the performance 
 gains. 
 
-EfficientNets perform what as known as 'compound scaling', which makes the
+EfficientNets performed what as known as 'compound scaling', which makes the
 network scaled up in depth, resolution, and width, without the performance costs
 of a similarly performing but larger parameter model. The compound-scaling that
 gives EfficientNet models their performance comes from stacking specific
@@ -98,24 +98,35 @@ alt='image of module types and their layers for efficientnet models'/>
 An EfficientNet model can be constructed by stacking these modules in different 
 configurations called Blocks. The baseline EfficientNet-B0 has 7 stacked
 configurations of blocks, with each subsequent model designation a note on how many 
-modules have been stacked in each of the 7 block sections. The architecture for the 
-EfficientNet-B6 model I use is plotted in the figure after this paragraph.
+modules have been stacked in each of the 7 block sections. 
 
-<figure>
-    <img width="100%" src="https://miro.medium.com/v2/resize:fit:1100/format:webp/1*rnhgFRXetwD8PvxhZIpwIA.png" 
-alt='image of efficientnet-b6 architecture'/>
-</figure>
+The EfficientNetV2 networks were subsequently developed using the architectures
+of the EfficientNet as a starting point in [EfficientNetV2: Smaller Models and Faster Training](https://arxiv.org/pdf/2104.00298.pdf).
+The creators of EfficientNetV2 jointly optimized network training speed and parameter
+efficiency by combining training-aware neural architecture search and scaling. Progressive
+learning, as introduced by the authors, is also a way to compensate for accuracy drops that
+occur during speedups of training brought on by increasing image size.
 
 I used the 'ImageNet' weights that exist for this model, not including the final layers
 used for the final classification, as this is where I will append my Bayesian dense layers
 to perform Bayesian classification on the extracted features of the images. The chest
 X-ray images are imported using the Tensorflow-Keras *image_dataset_from_directory*
 in order to save on local memory on my PC. I load the Pneumonia chest X-rays 
-and reformat the dimensions to be 256x256 pixels, with 3 channels per image for the 
-R,G,B colors. 
+and reformat the dimensions to be 299x299 pixels, with 3 channels per image for the 
+R,G,B colors, which are the same dimensions used by the researchers in the original
+chest-xray paper.
 
 I don't need to do a train-test split on this dataset since it comes pre-apportioned
-with 5216 total images in the training set ()
+with 5216 images in the training set (1341 Normal, 3875 Pneumonia) and 624 images in 
+the test set (234 Normal, 390 Pneumonia). I make use of Keras data augmentation layers 
+to augment the images used during training and insert them before the images have their
+features extracted by the pre-trained neural network. The images have their contrast 
+randomly modified by up to 30%. The second augmentation is translating the images by up
+to 30% in both the x and y direction. The third augmentation randomly flips images
+horizontally. The imbalanced number of normal to pneumonia+ images needs to be corrected to ensure that
+the final classification isn't biased towards a diagnosis. The final class weights are 
+1.95 for 'Normal' and 0.67 for 'Pneumonia'. 
+
 
 **STILL UNDER CONSTRUCTION**{: .notice--success}
 
