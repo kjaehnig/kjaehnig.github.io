@@ -114,7 +114,9 @@ X-ray images are imported using the Tensorflow-Keras *image_dataset_from_directo
 in order to save on local memory on my PC. I load the Pneumonia chest X-rays 
 and reformat the dimensions to be 299x299 pixels, with 3 channels per image for the 
 R,G,B colors, which are the same dimensions used by the researchers in the original
-chest-xray paper.
+chest-xray paper. There is a builtin pre-processing layer in the EfficientNetV2S model that
+scales the pixel values to the required range so there is no need to manual add any
+scaling to this overall architecture.
 
 I don't need to do a train-test split on this dataset since it comes pre-apportioned
 with 5216 images in the training set (1341 Normal, 3875 Pneumonia) and 624 images in 
@@ -127,6 +129,120 @@ horizontally. The imbalanced number of normal to pneumonia+ images needs to be c
 the final classification isn't biased towards a diagnosis. The final class weights are 
 1.95 for 'Normal' and 0.67 for 'Pneumonia'. 
 
+I used the [Keras-Tuner](https://keras.io/keras_tuner/) module in order to perform hyperparameter searches to find
+the model parameters that provide the best validation accuracy. The module provides several
+different types of parameter search strategies. I used the *BayesianOptimization* which fits
+a Gaussian process model to the hyperparameter search space in order to find the best
+parameters without the exhaustive computational requirement of a full grid search or a
+random search with a large number of parameter samplings. In the code block below is the
+python code for the transfer-learning *HyperModel* that keras-tuner uses to iteratively
+build models to explore the hyperparameter sampling space. I use the *val_accuracy* metric
+as the metric of merit for the best hyperparameters.
+
+```python
+def build_model(hp):
+    K.clear_session() # helps save memory during tuner runs
+    mdl = Sequential()
+
+    rdm_contrast = hp.Float('rdm_contrast', min_value=0.25, max_value=0.35, step=0.01, default=0.3)
+    rdm_trans = hp.Float('rdm_trans', min_value=0.25, max_value=0.35, step=0.01, default=0.3)
+
+    rdm_flip = hp.Choice('rdm_flip', ['horizontal','vertical','horizontal_and_vertical'],
+                                      default='horizontal')
+    mdl.add(tf.keras.layers.RandomFlip(rdm_flip, input_shape=(imgh, imgw, 3)))
+    mdl.add(tf.keras.layers.RandomContrast(rdm_contrast))
+    mdl.add(tf.keras.layers.RandomTranslation(rdm_trans, rdm_trans))
+
+    mdl.add(base_model) # base_model is the EfficientNetV2S pre-trained model in keras
+    mdl.add(tf.keras.layers.GlobalAveragePooling2D())
+
+    l1 = hp.Float("l1",
+                  min_value=4e-6,
+                  max_value=6e-6,
+                  step=5e-7,
+                  default=1e-5)
+    l2 = hp.Float("l2", min_value=1e-6, max_value=5e-6, step=5e-7, default=1e-5)
+    regular_choice = hp.Choice('regular_choice', ['l1','l2','l1l2'], default='l1')
+    if regular_choice == 'l1':
+        kernel_regs = tf.keras.regularizers.l1(l1)
+    if regular_choice == 'l2':
+        kernel_regs = tf.keras.regularizers.l2(l2)
+    if regular_choice == 'l1l2':
+        kernel_regs = tf.keras.regularizers.l1_l2(l1=l1, l2=l2)
+
+    d1units = hp.Choice("d1units", [128, 256, 512, 1024], default=512)
+    d2units = hp.Choice("d2units", [128, 256, 512, 1024], default=512)
+
+    mdl.add(tfpl.DenseReparameterization(units=d1units,activation='linear', activity_regularizer=kernel_regs,
+                                         kernel_prior_fn=tfpl.default_multivariate_normal_fn,
+                                         kernel_posterior_fn=tfpl.default_mean_field_normal_fn(is_singular=False),
+                                         kernel_divergence_fn=divergence,
+                                         bias_prior_fn=tfpl.default_multivariate_normal_fn,
+                                         bias_posterior_fn=tfpl.default_mean_field_normal_fn(is_singular=False),
+                                         bias_divergence_fn=divergence,
+                                    )
+                                    )
+    mdl.add(Activation('relu'))
+    mdl.add(Dropout(hp.Float('dropout_rate1', min_value=0.55, max_value=0.65, step=0.01, default=0.5)))
+
+    mdl.add(tfpl.DenseReparameterization(units=d2units,activation='linear', activity_regularizer=kernel_regs,
+                                         kernel_prior_fn=tfpl.default_multivariate_normal_fn,
+                                         kernel_posterior_fn=tfpl.default_mean_field_normal_fn(is_singular=False),
+                                         kernel_divergence_fn=divergence,
+                                         bias_prior_fn=tfpl.default_multivariate_normal_fn,
+                                         bias_posterior_fn=tfpl.default_mean_field_normal_fn(is_singular=False),
+                                         bias_divergence_fn=divergence,
+                                    )
+                                    )
+    mdl.add(Activation('relu'))
+    mdl.add(Dropout(hp.Float('dropout_rate2', min_value=0.60, max_value=0.70, step=0.01, default=0.7)))
+    mdl.add(tfpl.DenseReparameterization(units = tfpl.OneHotCategorical.params_size(2),
+                                         activity_regularizer = kernel_regs,
+                                         kernel_prior_fn=tfpl.default_multivariate_normal_fn,
+                                         kernel_posterior_fn=tfpl.default_mean_field_normal_fn(is_singular=False),
+                                         kernel_divergence_fn=divergence,
+                                         bias_prior_fn=tfpl.default_multivariate_normal_fn,
+                                         bias_posterior_fn=tfpl.default_mean_field_normal_fn(is_singular=False),
+                                         bias_divergence_fn=divergence,
+                                    )
+                                    )
+
+
+    mdl.add(
+        tfpl.OneHotCategorical(2,
+                               convert_to_tensor_fn = tfd.Distribution.mode))
+    mdl.compile(loss=neg_loglike,
+        optimizer=tf.keras.optimizers.AdamW(learning_rate=hp.Float('learning_rate',
+                                            min_value=4e-5,
+                                            max_value=5e-5,
+                                            step=1e-6,
+                                            default=8.9e-5),
+
+                                            beta_1=hp.Float('beta_1',
+                                            min_value=0.92,
+                                            max_value=0.94,
+                                            step=0.001,
+                                            default=0.852),
+
+                                            beta_2=hp.Float('beta_2',
+                                            min_value=0.910,
+                                            max_value=0.920,
+                                            step=0.001,
+                                            default=0.937),
+
+                                            weight_decay=hp.Float('weight_decay',
+                                            min_value=0.001,
+                                            max_value=0.003,
+                                            step=0.0005,
+                                            default=0.001),
+
+                                            amsgrad=False,
+                                            ),
+        metrics=['accuracy'],
+        experimental_run_tf_function=False)
+
+    return mdl
+```
 
 **STILL UNDER CONSTRUCTION**{: .notice--success}
 
