@@ -33,26 +33,21 @@ which looked at using transfer-learning in order to explore the feasibility
 of early detection of specific ailments that are typically diagnosed from
 visual examination of X-rays. I quote the two main sections of text that best
 describe the Pneumonia dataset, as well as the methods of labeling that were used in
-the black bordered box below.
+the shaded text boxes below.
 
-<div>
-    <div style="border: 8px solid black; display: inline-block; padding: 4px;">
-
-<b>Description:</b> "We collected and labeled a total of 5,232 chest X-ray images
+<b>Description:</b> `"We collected and labeled a total of 5,232 chest X-ray images
 from children, including 3,883 characterized as depicting pneumonia 
 (2,538 bacterial and 1,345 viral) and 1,349 normal, from
 a total of 5,856 patients to train the AI system. The model was
 then tested with 234 normal images and 390 pneumonia images
-(242 bacterial and 148 viral) from 624 patients." 
+(242 bacterial and 148 viral) from 624 patients."` 
 
-<b>Labeling:</b> "For the analysis of chest X-ray images, all chest radiographs were 
+<b>Labeling:</b> `"For the analysis of chest X-ray images, all chest radiographs were 
 initially screened for quality control by removing all low quality or
 unreadable scans. The diagnoses for the images were then graded by two 
 expert physicians before being cleared for training the AI system. In 
 order to account for any grading errors, the evaluation set was also 
-checked by a third expert."
-    </div>
-</div>
+checked by a third expert."`
 
 
 A neural network classifier that only outputs a ‘positive’ or 
@@ -110,7 +105,7 @@ occur during speedups of training brought on by increasing image size.
 I used the 'ImageNet' weights that exist for this model, not including the final layers
 used for the final classification, as this is where I will append my Bayesian dense layers
 to perform Bayesian classification on the extracted features of the images. The chest
-X-ray images are imported using the Tensorflow-Keras *image_dataset_from_directory*
+X-ray images are imported using the Tensorflow-Keras `image_dataset_from_directory`
 in order to save on local memory on my PC. I load the Pneumonia chest X-rays 
 and reformat the dimensions to be 299x299 pixels, with 3 channels per image for the 
 R,G,B colors, which are the same dimensions used by the researchers in the original
@@ -136,7 +131,7 @@ of Ilya Loshchilov and Frank Hutter in [Decoupled Weight Decay Regularization](h
 
 I used the [Keras-Tuner](https://keras.io/keras_tuner/) module in order to perform hyperparameter searches to find
 the model parameters that provide the best validation accuracy. The module provides several
-different types of parameter search strategies. I used the *BayesianOptimization* which fits
+different types of parameter search strategies. I used the `BayesianOptimization` tuner which fits
 a Gaussian process model to the hyperparameter search space. The Gaussian process model will
 explore the parameter space in order to find the best parameters without the exhaustive 
 computational requirement of a full grid search or a random search which would require a 
@@ -144,18 +139,18 @@ large number of parameter samplings. I list the main
 parameters of the neural network that I optimize with Keras-tuner.
 
 ```python
-{'rdm_contrast': 0.27,      # abs amount of random contrast in images
- 'rdm_trans': 0.31,         # abs amount of random translation (x,y) in images
- 'rdm_flip': 'vertical',    # choice to flip images about horizontal, vertical, or both 
- 'l1': 7e-06,               # value of L1 (lasso) regularization in dense layers
- 'd1units': 256,            # number of neurons in 1st dense layer
- 'd2units': 256,            # number of neurons in 2nd dense layer
- 'dropout_rate1': 0.58,     # dropout rate of 1st dense layer
- 'dropout_rate2': 0.66,     # dropout rate of 2nd dense layer
- 'learning_rate': 4.3e-05,  # learning rate for AdamW optimizer
- 'beta_1': 0.93,            # exponential decay rate of 1st moment estimates
- 'beta_2': 0.912,           # exponential decay rate of 2nd moment estimates
- 'weight_decay': 0.0025}    # weight decay value
+'rdm_contrast'# absolute amount of random contrast to modify in images
+'rdm_trans'# absolute amount of random translation (x,y) to modify in images
+'rdm_flip'# choice between flipping images horizontally, vertically, or both 
+'l1'# value of L1 (lasso) regularization in dense layers
+'d1units'# number of neurons in 1st dense layer
+'d2units'# number of neurons in 2nd dense layer
+'dropout_rate1'# dropout rate of 1st dense layer
+'dropout_rate2'# dropout rate of 2nd dense layer
+'learning_rate'# learning rate for AdamW optimizer
+'beta_1'# exponential decay rate of 1st moment estimates
+'beta_2'# exponential decay rate of 2nd moment estimates
+'weight_decay'# weight decay value
  ```
 
 I run the tuner with 75 trials, with each trial running for 10 full epochs of training 
@@ -176,7 +171,43 @@ inherent in the chest X-ray images. The choice of 18 comes from how much my comp
 could handle training the entire unfrozen portion of the EfficientNetV2S before I hit
 `Out-Of-Memory` errors. The learning rate was adjusted manually to a very
 small value of 1e-7 to better fine-tune the model. This second round of training was a
-maximum of 25 epochs, with `EarlyStopping` in use again to prevent over fitting.
+maximum of 25 epochs, with `EarlyStopping` in use again to prevent over fitting. The best
+values for these hyperparameters are listed in the shaded box below.
+
+```python
+{'rdm_contrast': 0.27,      # abs amount of random contrast in images
+ 'rdm_trans': 0.31,         # abs amount of random translation (x,y) in images
+ 'rdm_flip': 'vertical',    # choice to flip images about horizontal, vertical, or both 
+ 'l1': 7e-06,               # value of L1 (lasso) regularization in dense layers
+ 'd1units': 256,            # number of neurons in 1st dense layer
+ 'd2units': 256,            # number of neurons in 2nd dense layer
+ 'dropout_rate1': 0.58,     # dropout rate of 1st dense layer
+ 'dropout_rate2': 0.66,     # dropout rate of 2nd dense layer
+ 'learning_rate': 4.3e-05,  # learning rate for AdamW optimizer
+ 'beta_1': 0.93,            # exponential decay rate of 1st moment estimates
+ 'beta_2': 0.912,           # exponential decay rate of 2nd moment estimates
+ 'weight_decay': 0.0025}    # weight decay value
+ ```
+
+The test set of images contains 234 'Normal' chest x-rays and 390 'Pneumonia' chest x-rays.
+The best model is able to achieve an overall accuracy of **95.3%**. However, this is not the
+best metric to use in this case as the two classes in our data set are not balanced, and so
+accuracy will provide a misleading perspective on the network's capability. I plot the 
+confusion matrix for these classes below, with the fraction of cases out of each type of 
+classification, along with the integer number of cases in parentheses. In summary from the
+confusion matrix the best model achieves:
+- 216 True Negatives (Healthy children correctly identified as healthy)
+- 379 True Positives (Children with Pneumonia correctly diagnosed)
+- 18 False Positives (Healthy children who were mis-diagnosed with Pneumonia)
+- 11 False Negatives (Children with Pneumonia were mis-diagnosed as healthy)
+
+<figure>
+    <img width="100%" src="/images/pneumonia_cxr_nn/pneumonia_bcnn_confusion_matrix.png" 
+            alt='confusion matrix for all test image cases based on final model classifications'/>
+</figure>
+
+
+
 
 
 **STILL UNDER CONSTRUCTION**{: .notice--success}
