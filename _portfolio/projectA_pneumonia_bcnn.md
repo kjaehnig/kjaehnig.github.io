@@ -137,16 +137,17 @@ of Ilya Loshchilov and Frank Hutter in [Decoupled Weight Decay Regularization](h
 I used the [Keras-Tuner](https://keras.io/keras_tuner/) module in order to perform hyperparameter searches to find
 the model parameters that provide the best validation accuracy. The module provides several
 different types of parameter search strategies. I used the *BayesianOptimization* which fits
-a Gaussian process model to the hyperparameter search space in order to find the best
-parameters without the exhaustive computational requirement of a full grid search or a
-random search with a large number of parameter samplings. I list the main parameters
-that I explore the best values for to maximize the detection capacity of the neural
-network below.
+a Gaussian process model to the hyperparameter search space. The Gaussian process model will
+explore the parameter space in order to find the best parameters without the exhaustive 
+computational requirement of a full grid search or a random search which would require a 
+large number of parameter samplings. I list the main 
+parameters of the neural network that I optimize with Keras-tuner.
 
 ```python
 {'rdm_contrast': 0.27,      # abs amount of random contrast in images
  'rdm_trans': 0.31,         # abs amount of random translation (x,y) in images
  'rdm_flip': 'vertical',    # choice to flip images about horizontal, vertical, or both 
+ 'l1': 7e-06,               # value of L1 (lasso) regularization in dense layers
  'd1units': 256,            # number of neurons in 1st dense layer
  'd2units': 256,            # number of neurons in 2nd dense layer
  'dropout_rate1': 0.58,     # dropout rate of 1st dense layer
@@ -157,7 +158,25 @@ network below.
  'weight_decay': 0.0025}    # weight decay value
  ```
 
-T
+I run the tuner with 75 trials, with each trial running for 10 full epochs of training 
+using all the training images per epoch iteration. Validation accuracy was tracked with
+each trial to select the best model with the highest validation accuracy. With each 
+trial taking about ~5 mins the tuner run was about ~6.5 hours on my workstation with
+CUDA support placing most of the workload on my RTX-3060 TI GPU. The entire network takes
+up ~80 MB of memory, with only ~3.0 MB being trainable params (that is, params which
+will be modified and adjusted during training). The other ~77 MB come from the layers
+of the EfficientNetV2S pre-trained network, which is left with `trainable=False` in order
+to avoid making any modifications to its weights.
+
+After the best set of parameters were found, the optimized model was re-trained for an
+additional 25 epochs, with `EarlyStopping` setup as a callback to prevent the model
+from continuing training into over-fitting. After this set of training epochs the
+last 18 EfficientNetV2S layers were set to `Trainable` to better capture features
+inherent in the chest X-ray images. The choice of 18 comes from how much my computer
+could handle training the entire unfrozen portion of the EfficientNetV2S before I hit
+`Out-Of-Memory` errors. The learning rate was adjusted manually to a very
+small value of 1e-7 to better fine-tune the model. This second round of training was a
+maximum of 25 epochs, with `EarlyStopping` in use again to prevent over fitting.
 
 
 **STILL UNDER CONSTRUCTION**{: .notice--success}
