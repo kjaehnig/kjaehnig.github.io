@@ -174,7 +174,7 @@ small value of 1e-7 to better fine-tune the model. This second round of training
 maximum of 25 epochs, with `EarlyStopping` in use again to prevent over fitting. The best
 values for these hyperparameters are listed in the shaded box below.
 
-```python
+```
 {'rdm_contrast': 0.27,      # abs amount of random contrast in images
  'rdm_trans': 0.31,         # abs amount of random translation (x,y) in images
  'rdm_flip': 'vertical',    # choice to flip images about horizontal, vertical, or both 
