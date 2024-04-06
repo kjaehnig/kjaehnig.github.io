@@ -242,12 +242,15 @@ respectively. The values in parentheses are the differences between the same per
 metrics from the Cell article model. I also summarize these findings in the table directly
 below.
 
-|    **Metric**   | **Cell Article** |                **This project (Median)**               |                                      **95% Confidence Interval**                                     |
-|:---------------:|:----------------:|:------------------------------------------------------:|:----------------------------------------------------------------------------------------------------:|
-|   **Accuracy**  |     **92.8%**    | **94.2% (<span style="color:green"> **+1.4**</span>)** |  93.6 (<span style="color:green">**+0.8**</span>), 94.9 (<span style="color:green">**+2.1**</span>)  |
-| **Sensitivity** |     **93.2%**    | 96.2% (<span style="color:green"> **+3.0**</span>)     | 95.3 (<span style="color:green">**+2.1**</span>),   96.7 (<span style="color:green">**+3.5**</span>) |
-| **Specificity** |     **90.1%**    | 91.0% (<span style="color:green"> **+0.9**</span>)     |                  90.1 (**0.0**),   92.7 (<span style="color:green">**+1.7**</span>)                  |
-|     **AUC**     |     **96.8%**    | 93.6% (<span style="color:red">**-3.2**</span>)        |   92.5 (<span style="color:red">**-4.3**</span>),   94.6 (<span style="color:red">**-2.2**</span>)   |
+|    **Metric**   | **Cell Article** |                  **This project**                  |                                      **95% Confidence Interval**                                     |
+|:---------------:|:----------------:|:--------------------------------------------------:|:----------------------------------------------------------------------------------------------------:|
+|   **Accuracy**  |     **92.8%**    | 94.2% (<span style="color:green"> **+1.4**</span>) |  93.6 (<span style="color:green">**+0.8**</span>), 94.9 (<span style="color:green">**+2.1**</span>)  |
+| **Sensitivity** |     **93.2%**    | 96.2% (<span style="color:green"> **+3.0**</span>) | 95.3 (<span style="color:green">**+2.1**</span>),   96.7 (<span style="color:green">**+3.5**</span>) |
+| **Specificity** |     **90.1%**    | 91.0% (<span style="color:green"> **+0.9**</span>) |                  90.1 (**0.0**),   92.7 (<span style="color:green">**+1.7**</span>)                  |
+|     **AUC**     |     **96.8%**    |  93.6% (<span style="color:red">**-3.2**</span>)   |   92.5 (<span style="color:red">**-4.3**</span>),   94.6 (<span style="color:red">**-2.2**</span>)   |
+
+
+
 **STILL UNDER CONSTRUCTION**{: .notice--success}
 
 
