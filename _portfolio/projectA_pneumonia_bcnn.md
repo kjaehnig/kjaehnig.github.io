@@ -35,6 +35,16 @@ visual examination of X-rays. I quote the two main sections of text that best
 describe the Pneumonia dataset, as well as the methods of labeling that were used in
 the shaded text boxes below.
 
+The original authors of the Cell article this dataset originates from achieved an overall
+accuracy of 92.8% in correctly classifying the data set, with a sensitivity of 93.2% and a 
+specificity of 90.1%. Sensitivity is essentially "*What fraction of people with an illness 
+were correctly identified as having an illness?*" Specificity can be phrased as "*What 
+fraction of non-ill people were correctly identified as not having any illnesses?" These last
+two metrics are what are typically cited in medical settings for the performance of a diagnostic
+test since it's most relevant. Later on I will calculate these same parameters to see how my
+model setup performed and also include uncertainties on these estimates due to the Bayesian
+nature of the dense bottom layers I will be using.
+
 <b>Description:</b> `"We collected and labeled a total of 5,232 chest X-ray images
 from children, including 3,883 characterized as depicting pneumonia 
 (2,538 bacterial and 1,345 viral) and 1,349 normal, from
@@ -174,7 +184,7 @@ small value of 1e-7 to better fine-tune the model. This second round of training
 maximum of 25 epochs, with `EarlyStopping` in use again to prevent over fitting. The best
 values for these hyperparameters are listed in the shaded box below.
 
-```
+```python
 {'rdm_contrast': 0.27,      # abs amount of random contrast in images
  'rdm_trans': 0.31,         # abs amount of random translation (x,y) in images
  'rdm_flip': 'vertical',    # choice to flip images about horizontal, vertical, or both 
@@ -192,7 +202,7 @@ values for these hyperparameters are listed in the shaded box below.
 The test set of images contains 234 'Normal' chest x-rays and 390 'Pneumonia' chest x-rays.
 The best model is able to achieve an overall accuracy of **95.3%**. However, this is not the
 best metric to use in this case as the two classes in our data set are not balanced, and so
-accuracy will provide a misleading perspective on the network's capability. I plot the 
+accuracy will provide a misleading perspective on the network's capabilities. I plot the 
 confusion matrix for these classes below, with the fraction of cases out of each type of 
 classification, along with the integer number of cases in parentheses. In summary from the
 confusion matrix the best model achieves:
@@ -201,14 +211,60 @@ confusion matrix the best model achieves:
 - 18 False Positives (Healthy children who were mis-diagnosed with Pneumonia)
 - 11 False Negatives (Children with Pneumonia were mis-diagnosed as healthy)
 
+
+
 <figure>
     <img width="100%" src="/images/pneumonia_cxr_nn/pneumonia_bcnn_confusion_matrix.png" 
             alt='confusion matrix for all test image cases based on final model classifications'/>
 </figure>
 
+Minimizing both false positives (aka Type-I errors) and false negatives (aka Type-II errors)
+is important. However, in this situation, it is more damaging in context not to prioritize 
+minimizing false negatives, due to the difference in cost between false positives and false
+negatives. False positives mean that the healthy child is potentially given extra attention
+and resources are mis-directed towards them. False negatives mean that a child goes potentially
+untreated for pneumonia which would be deadly. False negatives are the more important case
+in this situation to minimize, and it seems this model setup managed to do so. Best case would
+be **ZERO** false negatives of course. 
 
+My model here appears to mildly outperform the originally cited transfer learning model 
+from the Cell journal article. My transfer-learning model achieves a median accuracy of 
+94.2% (<span style="color:green">**+1.4**</span>), 
+a median sensitivity of 
+96.2% (<span style="color:green">**+3.0**</span>), 
+and a median specificity of 
+91.0% (<span style="color:green">**+0.9**</span>) 
+with the performance difference compared to the Cell model in parentheses. 
+In addition to these estimates the Bayesian dense layers used in this 
+transfer learning setup can also be used to generate confidence intervals 
+on these metrics to better illustrate the performance of the model beyond a 
+singular value. The 95% confidence intervals for accuracy, sensitivity, and
+specificity are .9457264957264958 0.9247863247863249
 
+[ 
+93.6 (<span style="color:green">**+0.8**</span>), 
+94.9 (<span style="color:green">**+2.1**</span>) 
+], 
+[ 
+95.3 (<span style="color:green">**+2.1**</span>), 
+96.7 (<span style="color:green">**+3.5**</span>)
+], and
+[ 
+90.1 (**0.0**), 
+92.7 (<span style="color:green">**+1.7**</span>) 
+], 
+respectively. The values in parentheses are the differences between the same performance
+metrics from the Cell article model. I also summarize these findings in the table directly
+below.
 
+Summary of this model's performance
+---
+|   **Metric**    | **Cell Article** |                  **This project**                  |                                      **95% Confidence Interval**                                     |
+|:---------------:|:----------------:|:--------------------------------------------------:|:----------------------------------------------------------------------------------------------------:|
+|  **Accuracy**   |      92.8%       | 94.2% (<span style="color:green"> **+1.4**</span>) |  93.6 (<span style="color:green">**+0.8**</span>), 94.9 (<span style="color:green">**+2.1**</span>)  |
+| **Sensitivity** |      93.2%       | 96.2% (<span style="color:green"> **+3.0**</span>) | 95.3 (<span style="color:green">**+2.1**</span>),   96.7 (<span style="color:green">**+3.5**</span>) |
+| **Specificity** |      90.1%       | 91.0% (<span style="color:green"> **+0.9**</span>) |                  90.1 (**0.0**),   92.7 (<span style="color:green">**+1.7**</span>)                  |
+|     **AUC**     |      96.8%       |  93.6% (<span style="color:red">**-3.2**</span>)   |   92.5 (<span style="color:red">**-4.3**</span>),   94.6 (<span style="color:red">**-2.2**</span>)   |
 
 **STILL UNDER CONSTRUCTION**{: .notice--success}
 
