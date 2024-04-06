@@ -86,24 +86,9 @@ EfficientNet models were originally developed in
 as a solution to the problem of increasing the performance of neural networks
 by increasing the width, depth, and resolution. This usually leads to the model
 containing more parameters and decreasing efficiency without the performance 
-gains. 
-
-EfficientNets performed what as known as 'compound scaling', which makes the
+gains. EfficientNets performed what as known as 'compound scaling', which makes the
 network scaled up in depth, resolution, and width, without the performance costs
-of a similarly performing but larger parameter model. The compound-scaling that
-gives EfficientNet models their performance comes from stacking specific
-layers into what the authors call 'modules'. These modules and the layers they are
-built with are shown in the figure after this paragraph.
-
-<figure>
-    <img width="100%" src="https://miro.medium.com/v2/resize:fit:2000/format:webp/1*cwMpOJNhwOeosjwW-usYvA.png" 
-alt='image of module types and their layers for efficientnet models'/>
-</figure>
-
-An EfficientNet model can be constructed by stacking these modules in different 
-configurations called Blocks. The baseline EfficientNet-B0 has 7 stacked
-configurations of blocks, with each subsequent model designation a note on how many 
-modules have been stacked in each of the 7 block sections. 
+of a similarly performing but larger parameter model.
 
 The EfficientNetV2 networks were subsequently developed using the architectures
 of the EfficientNet as a starting point in [EfficientNetV2: Smaller Models and Faster Training](https://arxiv.org/pdf/2104.00298.pdf).
