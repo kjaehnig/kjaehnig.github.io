@@ -285,21 +285,13 @@ a different type of classification, in the same orientation as a confusion matri
 | **False Negative** | **True Positive**  |
 
 
+|:-:|:-:|
+|![TN](/images/pneumonia_cxr_nn/cxr_tn.png)|![FP](/images/pneumonia_cxr_nn/cxr_fp.png)|
+|![FN](/images/pneumonia_cxr_nn/cxr_fn.png)|![TP](/images/pneumonia_cxr_nn/cxr_tp.png)|
 
- <figure> <img width="100%" src="/images/pneumonia_cxr_nn/cxr_tn.png" /> </figure> 
 
 
-
-
-Final summary of Model Performance
----
-|   **Metric**    | **Cell Article** |                  **This project**                  |                                      **95% Confidence Interval**                                       |
-|:---------------:|:----------------:|:--------------------------------------------------:|:------------------------------------------------------------------------------------------------------:|
-|  **Accuracy**   |    **92.8%**     | 94.2% (<span style="color:green"> **+1.4**</span>) |   93.6 (<span style="color:green">**+0.8**</span>), 94.9 (<span style="color:green">**+2.1**</span>)   |
-| **Sensitivity** |    **93.2%**     | 96.2% (<span style="color:green"> **+3.0**</span>) |  95.3 (<span style="color:green">**+2.1**</span>),   96.7 (<span style="color:green">**+3.5**</span>)  |
-| **Specificity** |    **90.1%**     | 91.0% (<span style="color:green"> **+0.9**</span>) |                   90.1 (**0.0**),   92.7 (<span style="color:green">**+1.7**</span>)                   |
-|     **AUC**     |    **0.968**     | 0.936 (<span style="color:red">**-0.032**</span>)  | 0.925 (<span style="color:red">**-0.043**</span>),   0.946 (<span style="color:red">**-0.022**</span>) |
-
+# <a style="text-align: center"><b>Final Summary of Model Performance</b></a>
 
 <table rules="groups">
   <thead>
@@ -312,32 +304,37 @@ Final summary of Model Performance
   </thead>
   <tbody>
     <tr>
-      <td style="text-align: center">Accuracy</td>
-      <td style="text-align: center">92.8%</td>
-      <td style="text-align: center">94.2% (<span style="color:green"> +1.4</span>)</td>
-      <td style="text-align: center">93.6 (<span style="color:green">+0.8</span>), 94.9 (<span style="color:green">+2.1</span>)</td>
+      <td style="text-align: center"><b>Accuracy</b></td>
+      <td style="text-align: center"><b>92.8%</b></td>
+      <td style="text-align: center"><b>94.2% (<span style="color:green"> +1.4</span>)</b></td>
+      <td style="text-align: center"><b>93.6% (<span style="color:green">+0.8</span>), 94.9% (<span style="color:green">+2.1</span>)</b></td>
     </tr>
     <tr>
-      <td style="text-align: center">Sensitivity</td>
-      <td style="text-align: center">93.2%</td>
-      <td style="text-align: center">96.2% (<span style="color:green"> +3.0</span>)</td>
-      <td style="text-align: center">95.3 (<span style="color:green">+2.1</span>), 96.7 (<span style="color:green">+3.5</span>)</td>
+      <td style="text-align: center"><b>Sensitivity</b></td>
+      <td style="text-align: center"><b>93.2%</b></td>
+      <td style="text-align: center"><b>96.2%</b> (<span style="color:green"> +3.0</span>)</td>
+      <td style="text-align: center"><b>95.3% (<span style="color:green">+2.1</span>), 96.7% (<span style="color:green">+3.5</span>)</b></td>
     </tr>  
   </tbody>
   <tbody>
     <tr>
-      <td style="text-align: left">cell1</td>
-      <td style="text-align: center">cell2</td>
-      <td style="text-align: right">cell3</td>
+      <td style="text-align: center"><b>Specificity</b></td>
+      <td style="text-align: center"><b>90.1%</b></td>
+      <td style="text-align: center"><b>91.0% (<span style="color:green"> +0.9</span>)</b></td>
+      <td style="text-align: center"><b>90.1 (0.0),   92.7 (<span style="color:green">+1.7</span>)</b></td>
     </tr>
     <tr>
-      <td style="text-align: left">cell4</td>
-      <td style="text-align: center">cell5</td>
-      <td style="text-align: right">cell6</td>
+      <td style="text-align: center"><b>AUC</b></td>
+      <td style="text-align: center"><b>0.968</b></td>
+      <td style="text-align: center"><b>0.936 (<span style="color:red">-0.032</span>)</b></td>
+      <td style="text-align: center"><b>0.925 (<span style="color:red">-0.043</span>),   0.946 (<span style="color:red">-0.022</span>)</b></td>
     </tr>
   </tbody>
 
 </table>
+
+
+
 
 
 
