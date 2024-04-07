@@ -29,7 +29,7 @@ An AI system that could pre-classify chest X-rays could expedite the
 diagnostic workflow of the radiologist and reduce times between 
 examination, diagnosis, and more importantly, treatment. 
 
-#### The Data
+### The Data
 The dataset I use in this project comes from the [Large Dataset of Labeled Optical Coherence Tomography (OCT) and Chest X-Ray Images](https://data.mendeley.com/datasets/rscbjbr9sj/3)
 which looked at using transfer-learning in order to explore the feasibility
 of early detection of specific ailments that are typically diagnosed from
@@ -61,7 +61,7 @@ expert physicians before being cleared for training the AI system. In
 order to account for any grading errors, the evaluation set was also 
 checked by a third expert."`
 
-#### The Model Setup
+### The Model Setup
 A neural network classifier that only outputs a ‘positive’ or 
 ‘negative’ diagnosis is not gonna cut it. It’s important to understand 
 here that non-Bayesian neural networks output classifications that do 
@@ -126,7 +126,7 @@ described as 'stochastic gradient descent method that is based on adaptive estim
 first-order and second-order moments with an added method to decay weights' from the work
 of Ilya Loshchilov and Frank Hutter in [Decoupled Weight Decay Regularization](https://arxiv.org/abs/1711.05101). 
 
-#### Model Training
+### Model Training
 
 I used the [Keras-Tuner](https://keras.io/keras_tuner/) module in order to perform hyperparameter searches to find
 the model parameters that provide the best validation accuracy. The module provides several
@@ -188,7 +188,7 @@ values for these hyperparameters are listed in the shaded box below.
  'weight_decay': 0.0025}    # weight decay value
  ```
 
-#### Model Validation and Performance
+### Model Validation and Performance
 The test set of images contains 234 'Normal' chest x-rays and 390 'Pneumonia' chest x-rays.
 The best model is able to achieve an overall accuracy of **95.3%**. However, this is not the
 best metric to use in this case as the two classes in our data set are not balanced, and so
@@ -269,7 +269,7 @@ AUC values might be due to my use of class weights in training the model. The au
 Cell article do not state that they use class weights in training their model for the pneumonia 
 detection phase. 
 
-#### Benefits of Using Bayesian Models
+### Benefits of Using Bayesian Models
 Ultimately a Bayesian model that is used for single predictions is wasted, as the power of Bayesian
 models is their capability to model weights and biases as distributions. These distributions can
 model the uncertainty that exists within the model, and the data itself. It is then possible to
