@@ -1,10 +1,11 @@
 ---
-title: "Bayesian Transfer-Learning Feature Extraction"
+title: "Bayesian Transfer-Learning with Feature Extraction"
 excerpt: "Detecting Pneumonia in chest X-rays.<br/><img src='/images/pneumonia_cxr_nn/pneumonia_project_cover.png'>"
 collection: portfolio
 ---
 {%include base_path%}
 
+### Introduction and Context
 Pneumonia is an infection wherein one or both of the lungs are 
 incapacitated by fluids in the air-sacs of the lung. Pneumonia accounts 
 for about 2 million deaths yearly in children under the age of 5. Pneumonia is usually 
@@ -28,6 +29,7 @@ An AI system that could pre-classify chest X-rays could expedite the
 diagnostic workflow of the radiologist and reduce times between 
 examination, diagnosis, and more importantly, treatment. 
 
+#### The Data
 The dataset I use in this project comes from the [Large Dataset of Labeled Optical Coherence Tomography (OCT) and Chest X-Ray Images](https://data.mendeley.com/datasets/rscbjbr9sj/3)
 which looked at using transfer-learning in order to explore the feasibility
 of early detection of specific ailments that are typically diagnosed from
@@ -59,7 +61,7 @@ expert physicians before being cleared for training the AI system. In
 order to account for any grading errors, the evaluation set was also 
 checked by a third expert."`
 
-
+#### The Model Setup
 A neural network classifier that only outputs a ‘positive’ or 
 ‘negative’ diagnosis is not gonna cut it. It’s important to understand 
 here that non-Bayesian neural networks output classifications that do 
@@ -105,7 +107,7 @@ in order to save on local memory on my PC. I load the Pneumonia chest X-rays
 and reformat the dimensions to be 299x299 pixels, with 3 channels per image for the 
 R,G,B colors, which are the same dimensions used by the researchers in the original
 chest-xray paper. There is a builtin pre-processing layer in the EfficientNetV2S model that
-scales the pixel values to the required range so there is no need to manual add any
+scales the pixel values to the required range so there is no need to manually add any
 scaling to this overall architecture.
 
 I don't need to do a train-test split on this dataset since it comes pre-apportioned
@@ -123,6 +125,8 @@ The optimizer I use in this project is the 'AdamW' optimizer in the Keras module
 described as 'stochastic gradient descent method that is based on adaptive estimation of 
 first-order and second-order moments with an added method to decay weights' from the work
 of Ilya Loshchilov and Frank Hutter in [Decoupled Weight Decay Regularization](https://arxiv.org/abs/1711.05101). 
+
+#### Model Training
 
 I used the [Keras-Tuner](https://keras.io/keras_tuner/) module in order to perform hyperparameter searches to find
 the model parameters that provide the best validation accuracy. The module provides several
@@ -184,6 +188,7 @@ values for these hyperparameters are listed in the shaded box below.
  'weight_decay': 0.0025}    # weight decay value
  ```
 
+#### Model Validation and Performance
 The test set of images contains 234 'Normal' chest x-rays and 390 'Pneumonia' chest x-rays.
 The best model is able to achieve an overall accuracy of **95.3%**. However, this is not the
 best metric to use in this case as the two classes in our data set are not balanced, and so
@@ -195,8 +200,6 @@ confusion matrix the best model achieves:
 - 379 True Positives (Children with Pneumonia correctly diagnosed)
 - 18 False Positives (Healthy children who were mis-diagnosed with Pneumonia)
 - 11 False Negatives (Children with Pneumonia were mis-diagnosed as healthy)
-
-
 
 <figure>
     <img width="100%" src="/images/pneumonia_cxr_nn/pneumonia_bcnn_confusion_matrix.png" 
@@ -224,8 +227,7 @@ In addition to these estimates the Bayesian dense layers used in this
 transfer learning setup can also be used to generate confidence intervals 
 on these metrics to better illustrate the performance of the model beyond a 
 singular value. The 95% confidence intervals for accuracy, sensitivity, and
-specificity are .9457264957264958 0.9247863247863249
-
+specificity are
 [ 
 93.6 (<span style="color:green">**+0.8**</span>), 
 94.9 (<span style="color:green">**+2.1**</span>) 
@@ -239,15 +241,106 @@ specificity are .9457264957264958 0.9247863247863249
 92.7 (<span style="color:green">**+1.7**</span>) 
 ], 
 respectively. The values in parentheses are the differences between the same performance
-metrics from the Cell article model. I also summarize these findings in the table directly
-below.
+metrics from the Cell article model. I also summarize these findings in the table at the 
+bottom of this project article.
 
-|    **Metric**   | **Cell Article** |                  **This project**                  |                                      **95% Confidence Interval**                                     |
-|:---------------:|:----------------:|:--------------------------------------------------:|:----------------------------------------------------------------------------------------------------:|
-|   **Accuracy**  |     **92.8%**    | 94.2% (<span style="color:green"> **+1.4**</span>) |  93.6 (<span style="color:green">**+0.8**</span>), 94.9 (<span style="color:green">**+2.1**</span>)  |
-| **Sensitivity** |     **93.2%**    | 96.2% (<span style="color:green"> **+3.0**</span>) | 95.3 (<span style="color:green">**+2.1**</span>),   96.7 (<span style="color:green">**+3.5**</span>) |
-| **Specificity** |     **90.1%**    | 91.0% (<span style="color:green"> **+0.9**</span>) |                  90.1 (**0.0**),   92.7 (<span style="color:green">**+1.7**</span>)                  |
-|     **AUC**     |     **96.8%**    |  93.6% (<span style="color:red">**-3.2**</span>)   |   92.5 (<span style="color:red">**-4.3**</span>),   94.6 (<span style="color:red">**-2.2**</span>)   |
+I also generate the Receiver Operator Characteristic (ROC) curve for this model. The ROC 
+curve is a useful tool to assess the performance of a diagnostic tools. Theoretically, the best
+diagnostic tool will have a curve drawn all the way to the top-left, indicating that it 
+has a high true positive rate, and a zero false positive rate at all decision thresholds.
+With the ROC curve it is possible to compute the Area Under Curve (AUC) value, which statistically
+describes how well the diagnostic model can perform classifications. The AUC has a minimum and maximum
+value of 0.0 and 1.0, respectively, with 1.0 indicating a 'perfect classifier' that has no 
+false positives or false negatives. A random guess classifier (such as flipping a coin) will 
+have an AUC of 0.5, which is a diagonal line from the bottom left to the top right of the plotted 
+ROC curve. An AUC value less than 0.5 and approaching 0.0 indicates a classifier that performs
+worse than random-guessing at classification.
+
+I have plotted the ROC curve for my model setup in the figure below, with shaded 
+regions indicating the 95% confidence interval for the ROC curve. This confidence interval 
+was created by resampling the classification probabilities of the test dataset made possible 
+by the Bayesian layers in model. I have also added the median AUC value from these resamples,
+with the average change in the 95% confidence interval of AUC values. The model i've built here
+has an AUC value slightly lower than the authors of the Cell article model. The authors there 
+achieve an AUC value of 0.968 in their ROC for detecting Pneumonia from Normal chest x-rays. My 
+model's AUC has a median value of 0.936 (<span style="color:red">**-0.032**</span>), with the
+difference between my model's AUC and the author's model AUC in parentheses. This discrepancy in 
+AUC values might be due to my use of class weights in training the model. The author's in the 
+Cell article do not state that they use class weights in training their model for the pneumonia 
+detection phase. 
+
+#### Benefits of Using Bayesian Models
+Ultimately a Bayesian model that is used for single predictions is wasted, as the power of Bayesian
+models is their capability to model weights and biases as distributions. These distributions can
+model the uncertainty that exists within the model, and the data itself. It is then possible to
+assess the capacity of a Bayesian model to perform classifications beyond single prediction
+instances. In the context of diagnosing Pneumonia in chest x-rays, this means that the output
+classifications can have probability distributions, which can better inform as to the quality
+of a final classification. To illustrate this I plot 4 different chest x-rays below, each representing
+a different type of classification, in the same orientation as a confusion matrix, that is:
+
+|           |      *Normal*      |    *Pneumonia*     |
+|:---------:|:------------------:|:------------------:|
+|  **Normal**   | **True Negative**  | **False Positive** |
+| **Predicted** | **False Negative** | **True Positive**  |
+
+Where the labels in **bold** are the predicted labels and the *italicized* labels are the true
+labels.
+
+| <figure> <img width="100%" src="/images/pneumonia_cxr_nn/cxr_tn.png" /> </figure> 
+
+|:--:|:---:|
+
+
+
+Final summary of Model Performance
+---
+|   **Metric**    | **Cell Article** |                  **This project**                  |                                      **95% Confidence Interval**                                       |
+|:---------------:|:----------------:|:--------------------------------------------------:|:------------------------------------------------------------------------------------------------------:|
+|  **Accuracy**   |    **92.8%**     | 94.2% (<span style="color:green"> **+1.4**</span>) |   93.6 (<span style="color:green">**+0.8**</span>), 94.9 (<span style="color:green">**+2.1**</span>)   |
+| **Sensitivity** |    **93.2%**     | 96.2% (<span style="color:green"> **+3.0**</span>) |  95.3 (<span style="color:green">**+2.1**</span>),   96.7 (<span style="color:green">**+3.5**</span>)  |
+| **Specificity** |    **90.1%**     | 91.0% (<span style="color:green"> **+0.9**</span>) |                   90.1 (**0.0**),   92.7 (<span style="color:green">**+1.7**</span>)                   |
+|     **AUC**     |    **0.968**     | 0.936 (<span style="color:red">**-0.032**</span>)  | 0.925 (<span style="color:red">**-0.043**</span>),   0.946 (<span style="color:red">**-0.022**</span>) |
+
+
+<table rules="groups">
+  <thead>
+    <tr>
+      <th style="text-align: center">Metric</th>
+      <th style="text-align: center">Cell Article Model</th>
+      <th style="text-align: center">This Project</th>
+      <th style="text-align: center">95% Confidence Interval</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">Accuracy</td>
+      <td style="text-align: center">92.8%</td>
+      <td style="text-align: center">94.2% (<span style="color:green"> +1.4</span>)</td>
+      <td style="text-align: center">93.6 (<span style="color:green">+0.8</span>), 94.9 (<span style="color:green">+2.1</span>)</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Sensitivity</td>
+      <td style="text-align: center">93.2%</td>
+      <td style="text-align: center">96.2% (<span style="color:green"> +3.0</span>)</td>
+      <td style="text-align: center">95.3 (<span style="color:green">+2.1</span>), 96.7 (<span style="color:green">+3.5</span>)</td>
+
+  </tbody>
+  <tbody>
+    <tr>
+      <td style="text-align: left">cell1</td>
+      <td style="text-align: center">cell2</td>
+      <td style="text-align: right">cell3</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">cell4</td>
+      <td style="text-align: center">cell5</td>
+      <td style="text-align: right">cell6</td>
+    </tr>
+  </tbody>
+
+</table>
+
 
 
 
