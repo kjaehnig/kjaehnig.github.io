@@ -279,17 +279,15 @@ classifications can have probability distributions, which can better inform as t
 of a final classification. To illustrate this I plot 4 different chest x-rays below, each representing
 a different type of classification, in the same orientation as a confusion matrix, that is:
 
-|           |      *Normal*      |    *Pneumonia*     |
-|:---------:|:------------------:|:------------------:|
-|  **Normal**   | **True Negative**  | **False Positive** |
-| **Predicted** | **False Negative** | **True Positive**  |
+|         |     |
+|:------------------:|:------------------:|
+| **True Negative**  | **False Positive** |
+| **False Negative** | **True Positive**  |
 
-Where the labels in **bold** are the predicted labels and the *italicized* labels are the true
-labels.
 
-| <figure> <img width="100%" src="/images/pneumonia_cxr_nn/cxr_tn.png" /> </figure> 
 
-|:--:|:---:|
+ <figure> <img width="100%" src="/images/pneumonia_cxr_nn/cxr_tn.png" /> </figure> 
+
 
 
 
@@ -324,7 +322,7 @@ Final summary of Model Performance
       <td style="text-align: center">93.2%</td>
       <td style="text-align: center">96.2% (<span style="color:green"> +3.0</span>)</td>
       <td style="text-align: center">95.3 (<span style="color:green">+2.1</span>), 96.7 (<span style="color:green">+3.5</span>)</td>
-
+    </tr>  
   </tbody>
   <tbody>
     <tr>
