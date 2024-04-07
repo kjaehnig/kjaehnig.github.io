@@ -279,7 +279,6 @@ classifications can have probability distributions, which can better inform as t
 of a final classification. To illustrate this I plot 4 different chest x-rays below, each representing
 a different type of classification, in the same orientation as a confusion matrix, that is:
 
-|         |     |
 |:------------------:|:------------------:|
 | **True Negative**  | **False Positive** |
 | **False Negative** | **True Positive**  |
