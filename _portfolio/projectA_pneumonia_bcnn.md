@@ -5,6 +5,10 @@ collection: portfolio
 ---
 {%include base_path%}
 
+[!NOTE]  
+**STILL UNDER CONSTRUCTION**
+
+
 ### Introduction and Context
 Pneumonia is an infection wherein one or both of the lungs are 
 incapacitated by fluids in the air-sacs of the lung. Pneumonia accounts 
@@ -374,7 +378,6 @@ isn't as sure, which means the predictions have more variation, increasing the e
 
 
 
-**STILL UNDER CONSTRUCTION**{: .notice--success}
 
 
 
