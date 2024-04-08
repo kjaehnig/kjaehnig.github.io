@@ -5,8 +5,12 @@ collection: portfolio
 ---
 {%include base_path%}
 
+
+**STILL UNDER CONSTRUCTION**{: .notice--success}
+
 > [!NOTE]  
-> **STILL UNDER CONSTRUCTION**
+> Project page still under construction.
+
 
 ### Introduction and Context
 Pneumonia is an infection wherein one or both of the lungs are 
