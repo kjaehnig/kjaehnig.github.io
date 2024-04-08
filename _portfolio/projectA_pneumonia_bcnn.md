@@ -6,10 +6,7 @@ collection: portfolio
 {%include base_path%}
 
 
-**STILL UNDER CONSTRUCTION**{: .notice--success}
-
-> [!NOTE]  
-> Project page still under construction.
+**STILL UNDER CONSTRUCTION**{: .notice--warning}
 
 
 ### Introduction and Context
