@@ -5,9 +5,8 @@ collection: portfolio
 ---
 {%include base_path%}
 
-[!NOTE]  
-**STILL UNDER CONSTRUCTION**
-
+> [!NOTE]  
+> **STILL UNDER CONSTRUCTION**
 
 ### Introduction and Context
 Pneumonia is an infection wherein one or both of the lungs are 
