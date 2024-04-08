@@ -137,7 +137,7 @@ computational requirement of a full grid search or a random search which would r
 large number of parameter samplings. I list the main 
 parameters of the neural network that I optimize with Keras-tuner.
 
-```python
+~~~
 'rdm_contrast'# absolute amount of random contrast to modify in images
 'rdm_trans'# absolute amount of random translation (x,y) to modify in images
 'rdm_flip'# choice between flipping images horizontally, vertically, or both 
@@ -150,7 +150,7 @@ parameters of the neural network that I optimize with Keras-tuner.
 'beta_1'# exponential decay rate of 1st moment estimates
 'beta_2'# exponential decay rate of 2nd moment estimates
 'weight_decay'# weight decay value
- ```
+~~~
 
 I run the tuner with 75 trials, with each trial running for 10 full epochs of training 
 using all the training images per epoch iteration. Validation accuracy was tracked with
@@ -173,7 +173,7 @@ small value of 1e-7 to better fine-tune the model. This second round of training
 maximum of 25 epochs, with `EarlyStopping` in use again to prevent over fitting. The best
 values for these hyperparameters are listed in the shaded box below.
 
-```python
+~~~
 {'rdm_contrast': 0.27,      # abs amount of random contrast in images
  'rdm_trans': 0.31,         # abs amount of random translation (x,y) in images
  'rdm_flip': 'vertical',    # choice to flip images about horizontal, vertical, or both 
@@ -186,7 +186,7 @@ values for these hyperparameters are listed in the shaded box below.
  'beta_1': 0.93,            # exponential decay rate of 1st moment estimates
  'beta_2': 0.912,           # exponential decay rate of 2nd moment estimates
  'weight_decay': 0.0025}    # weight decay value
- ```
+~~~
 
 ### Model Validation and Performance
 The test set of images contains 234 'Normal' chest x-rays and 390 'Pneumonia' chest x-rays.
@@ -280,12 +280,50 @@ of a final classification. To illustrate this I plot 4 different chest x-rays be
 a different type of classification, in the same orientation as a confusion matrix, that is:
 
 
-
 |:-:|:-:|
 | <a style="color:green"><b>True Negative</b></a>  | <a style="color:red"><b>False Positive</b></a> |
 |![TN](/images/pneumonia_cxr_nn/cxr_tn.png)|![FP](/images/pneumonia_cxr_nn/cxr_fp.png)|
 | <a style="color:red"><b>False Negative</b></a> | <a style="color:green"><b>True Positive</b></a>  |
 |![FN](/images/pneumonia_cxr_nn/cxr_fn.png)|![TP](/images/pneumonia_cxr_nn/cxr_tp.png)|
+
+
+These images show that Bayesian neural networks can assess the uncertainty of the classifications
+it produces, and relay that information as a 'spread' in the probabilities of each image being
+a specific class. Ideally, we'd want the network to be **very** sure when it classifies negative
+and positive classes correctly, which means very small spread in those probabilities. This is
+shown in the true positive Pneumonia detection (bottom right above), and the true negative
+diagnosis of no Pneumonia (top left above). Counter to being very certain of it's correct
+classifications, we want the network to display much larger uncertainty in its incorrect
+classifications, in the form of a large spread in the class probabilities of each image. This 
+is apparent in the false positive (top right above) and the false negative (bottom left above).
+This extra information makes the classifications from this neural network more interpretable
+than just being 'Pneumonia' or 'Normal' now they have a 'quality' as to how reliable the 
+classification can be considered.
+
+We can also use the classification probabilities to assess the overall performance of the network
+by calculating the entropy in the classifications. Entropy, as a reminder, is the amount of 
+information that is recoverable from a system. In this sense information is taken to be the
+amount of heterogeneity. A 'perfect' classification of 'Pneumonia' would have an entropy of 
+0.0 as the entirety of all classification probabilities are homogenous and indicating
+'Pneumonia'
+
+I first plot the entropy distributions split on whether the image was correctly or incorrectly
+classified. The left plot is the entropy distribution of the correctly classified images. The 
+right plot is the entropy distribution of the incorrectly classified images. Each entropy
+distribution is also plotted in dashed lines to better compare them to each other. The mean, 
+median, and mode for the correctly classified images were 0.087 bits, 0.013 bits, and 0.012 bits,
+respectively. The mean, median, and mode for the incorrectly classified images were 0.305 bits,
+0.299 bits, and 0.081 bits, respectively. The smaller entropy in the correctly classified images
+illustrates how much more confident the model is in its predictions, since there is little
+variation in the predictions for each correctly classified image. The incorrectly classified 
+images have an entropy 3.5x to 20x the amount of the correctly classified images. The network
+isn't as sure, which means the predictions have more variation, increasing the entropy.
+
+![Entropy Dists](images/pneumonia_cxr_nn/pneumonia_bcnn_entropy_dist.png)
+
+
+
+
 
 
 
@@ -330,8 +368,6 @@ a different type of classification, in the same orientation as a confusion matri
   </tbody>
 
 </table>
-
-
 
 
 
