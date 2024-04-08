@@ -319,7 +319,8 @@ variation in the predictions for each correctly classified image. The incorrectl
 images have an entropy 3.5x to 20x the amount of the correctly classified images. The network
 isn't as sure, which means the predictions have more variation, increasing the entropy.
 
-![Entropy Dists](images/pneumonia_cxr_nn/pneumonia_bcnn_entropy_dist.png)
+|:-:|
+|![Entropy Dists](images/pneumonia_cxr_nn/pneumonia_bcnn_entropy_dist.png)|
 
 
 
