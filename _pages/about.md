@@ -19,7 +19,6 @@ Here is a new web app i've been making using streamlit that is a Bayesian neural
 
 <iframe src="https://bnn-digits-recognizer-app-vakupjzag8kujfgurob7eg.streamlit.app/?embedded=true" style="height:500px; width:100%;"></iframe>
 
-https://bnn-digits-recognizer-app-vakupjzag8kujfgurob7eg.streamlit.app/?embed_options=light_theme
 I am excited about advances in AI but I am also keen on contributing to the ethical application of AI in all its forms. I am committed to developing AI ethically. I believe it's crucial to develop AI with the sensitivity and attention to avoiding the harmful impacts on marginalized communities. I am eager to collaborate with others and learn from diverse perspectics to ensure the technologies we create are inclusive and respectful to all communities. 
 
 When I am not doing work I will usually do some embroidery on a loop or on my converses if I'm not reading. I'll either be doing that or chasing around one (or both) of my two cats, Harry and Vera. Partake in their fluffy stillness when they're not zooming around in goblin-mode.
