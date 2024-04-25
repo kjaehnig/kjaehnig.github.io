@@ -18,7 +18,7 @@ My name is Karl(i) and I am a recent Astrophysics Ph.D (Aug-2023) from Vanderbil
 Here is a new web app i've been making using streamlit that is a Bayesian neural network classifier for MNIST digits with a canvas to write your own and test it. 
 
 <iframe
-  src="https://bnn-digits-recognizer-app-vakupjzag8kujfgurob7eg.streamlit.app/"
+  src="https://bnn-digits-recognizer-app-vakupjzag8kujfgurob7eg.streamlit.app/?embed=true "
   height="450"
   style={{ width: "100%", border: "none" }}
 ></iframe>
