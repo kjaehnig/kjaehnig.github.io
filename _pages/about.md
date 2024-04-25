@@ -17,7 +17,7 @@ My name is Karl(i) and I am a recent Astrophysics Ph.D (Aug-2023) from Vanderbil
 **SURPRISE UPDATE**
 Here is a new web app i've been making using streamlit that is a Bayesian neural network classifier for MNIST digits with a canvas to write your own and test it. 
 
-<iframe src="https://bnn-digits-recognizer-app-vakupjzag8kujfgurob7eg.streamlit.app/?embedded=true" style="width:100%;"></iframe>
+<iframe src="https://bnn-digits-recognizer-app-vakupjzag8kujfgurob7eg.streamlit.app/?embedded=true" style="height=500; width:100%;"></iframe>
 
 
 I am excited about advances in AI but I am also keen on contributing to the ethical application of AI in all its forms. I am committed to developing AI ethically. I believe it's crucial to develop AI with the sensitivity and attention to avoiding the harmful impacts on marginalized communities. I am eager to collaborate with others and learn from diverse perspectics to ensure the technologies we create are inclusive and respectful to all communities. 
