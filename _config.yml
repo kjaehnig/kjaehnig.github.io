@@ -80,13 +80,13 @@ analytics:
 
 # Site Author
 author:
-  name             : "Karl(i) Jaehnig, Ph.D"
+  name             : "Karl Jaehnig, Ph.D"
   avatar           : "Pro_headshot.png"
   bio              : "Ph.D. Astrophysicist<br>Data Scientist<br>AI/ML Instructor"
-  location         : "CST, USA"
-  employer         :
+  location         : "Eastern Time Zone, USA"
+  employer         : 
   pubmed           : #""
-  googlescholar    : #"http://yourfullgooglescholarurl.com"
+  googlescholar    : "https://scholar.google.com/citations?user=5JItxc8AAAAJ&hl=en"
   email            :
   researchgate     :  # example: "https://www.researchgate.net/profile/yourprofile"
   uri              :
@@ -103,7 +103,7 @@ author:
   impactstory      : #"https://profiles.impactstory.org/u/xxxx-xxxx-xxxx-xxxx"
   lastfm           :
   linkedin         : "karljaehnig"
-  orcid            : #"http://orcid.org/yourorcidurl"
+  orcid            : "https://orcid.org/0000-0002-7916-1493"
   pinterest        :
   soundcloud       :
   stackoverflow    : # http://stackoverflow.com/users/123456/username
@@ -255,7 +255,7 @@ sass:
 permalink: /:categories/:title/
 # paginate: 5 # amount of posts to show
 # paginate_path: /page:num/
-timezone: America/Chicago # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+timezone: America/New_York # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
 
 # Plugins
