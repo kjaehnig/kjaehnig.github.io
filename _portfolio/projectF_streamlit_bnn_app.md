@@ -13,6 +13,8 @@ I expanded beyond doing just digit recognition, as I had done before with my Bay
 
 I chose this dataset because it let's me achieve a better performing model on all labels while shaving off the computational cost needed to classify more than just 10 digits. My previous MNIST Bayesian classifier model flattened and classified digits only on their pixel values. I will need to have more complex feature extraction to be able to identify all 47 different characters in the EMNIST dataset. Following the transfer-learning project I did previously with Pneumonia detection I will use a previously trained model in the Tensorflow applications module to perform feature extraction on the EMNIST images before running them through Bayesian dense layers to perform the final classifications. 
 
+<iframe src="https://bnn-ocr-webapp.streamlit.app/?embedded=true" style="height:700px; width:100%;">
+</iframe>
 
 
 **STILL UNDER CONSTRUCTION**{: .notice--warning}

@@ -14,83 +14,64 @@ Education
 * Ph.D in Astrophysics, Vanderbilt University, 2023
   * Thesis: Characterizing Open Clusters and Spectroscopic Eclipsing Binaries with Machine Learning Frameworks
 * M.S. in Physics, Fisk University, 2017
-* B.S. in Astronomy, University of Florida, 2011
-
-Work experience
-======
-* 01.2024 - : Part-time AI/ML Instructor, AI-4-ALL
-  * Provide technical instruction to minority undergraduates
-  * Provide ethical instruction/discussion on AI technologies
-  * Aid students in constructing AI project over 13 weeks
-  
-* 01.2022 - 08.2023: Researcher, Vanderbilt University
-  * Achieved less than 3% error with flexible Bayesian inference framework for time-series data
-  * Built hierarchical Bayesian model for population parameter estimation
-  * Designed neural network regression model for spectral data analysis
-
-* 08.2021-01.2022: Data Analyst, Center for Computational Astrophysics, Flatiron Institute
-  * Deployed flexible maximum likelihood algorithm in data processing pipeline
-  * Leveraged Gaussian process models for remove noise from sparse multi-sourced time-series data
-  * Created optimized python software for teaching astronomy classes
-  
-* 05.2019-08.2021: Graduate Researcher, Vanderbilt University
-  * Created automated clustering pipeline for noisy data with greater than 95% accuracy
-  * Increased clustering algorithm sensitivity by 11%
-  * Implemented written python code to automate hundreds of custom SQL queries
-  * Performed outlier detection of clusters with probabilistic graph analysis
+* B.S. in Astronomy, University of Florida, 2011  
 
 Skills
 ======
-* Python
-  * Numpy
-  * Scipy
-  * Sci-kit Learn
-  * Tensorflow + Keras
-  * Pandas
-  * Numba
-  * Pyspark
-  * OpenCV
-  * NLTK
-* Machine Learning
-  * Data Mining
-  * Data Engineering
-  * Clustering
-  * Classification
-  * Regression
-  * Random Forests
-  * Gaussian Processes
-  * MCMC
-  * MLE
-  * Model Selection
-  * Model Validation
-  * Deep Learning
-    * Convolutional Neural networks
-    * Bayesian Neural Networks
-    * Autoencoder Neural Networks
+* Languages
+  * Python (Numba, NumPy, Pandas, Sci-kit Learn, SciPy)
+  * SQL
+* Frameworks
+  * HuggingFace, NLTK, OpenCV, PySpark, TensorFlow, Jupyter
 * Analytics
   * Descriptive Statistics
   * Predictive Analysis
   * Bayesian Inference
+* Machine Learning
+  * Data Mining & Data Engineering
+  * Model Selection & Model Validation
+  * Clustering
+  * Random Forests
+  * Gaussian Processes
+  * MCMC
+  * Deep Learning
+  * Bayesian Networks
 * SQL
 * Visualizations
   * Python
-    * Matplotlib
-    * Seaborn
-    * Plotly
-    * Bokeh
+    * Matplotlib, Seaborn, Plotly, Bokeh
   * Tableau
 * Software Development
-  * Github
-  * Jupyter
-  * Docker
+  * Docker, Github, Jupyter, Streamlit
 * Languages
-  * English (primary)
-  * Spanish (secondary)
+  * English (primary), Spanish (secondary)
 * Soft-Skills
   * Research
-  * Presentations
-  * Collaboration
-  * Mentoring
+  * Presentations (PowerPoint, Keynote)
+  * Mentoring  
+
+Work experience
+======
+* 01.2024 - Present: Part-time AI/ML Instructor, AI-4-ALL
+  * Conducted lectures in AI/ML technical concepts to undergraduates
+  * Guided class discussions on ethical/responsible usages of AI technologies
+  * Advised on curriculum improvements for greater student engagement
+
+* 01.2022 - 08.2023: Researcher, Vanderbilt University
+  * Mentored junior researcher on position-velocity clustering with deconvolutional algorithm
+  * Constructed pipeline for multi-sourced data mining of astronomical data from online databases
+  * Increased detection sensitivity in astronomical survey by 11% with Gaussian Mixture Models
+
+* 08.2021-01.2022: Data Analyst, Center for Computational Astrophysics, Flatiron Institute
+  * Achieved less than 3% error with Bayesian inference framework for time-series data
+  * Leveraged Gaussian process models for denoising sparse time-series data
+  * Optimized python software for teaching astronomy concepts
+
+* 05.2019-08.2021: Graduate Researcher, Vanderbilt University
+  * Created automated clustering pipeline for noisy data with greater than 95% accuracy
+  * Increased clustering algorithm sensitivity by 11%
+  * Implemented written python code to automate hundreds of custom SQL queries
+  * Performed outlier detection of clusters with probabilistic graph analysis  
 
 Certifications
 ======
