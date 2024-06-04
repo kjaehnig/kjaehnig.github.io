@@ -13,7 +13,7 @@ Welcome to my personal website
 -------
 
 
-My name is Karl. I am a recent Astrophysics Ph.D (Aug-2023) from Vanderbilt University who is pivoting to industry. I decided that my route going forward would not continue in academia as I want my work to contribute to more material improvements in society other than the theoretical understanding of the Universe around us. I would like to go into data science amongst various industries such as Healthcare, Commerce, and Transportation, to name a few. 
+My name is Karl. I am a Astrophysics Ph.D (Aug-2023) from Vanderbilt University who is pivoting to industry. I decided that my route going forward would not continue in academia as I want my work to contribute to more material improvements in society other than the theoretical understanding of the Universe around us. I would like to go into data science amongst various industries such as Healthcare, Commerce, and Transportation, to name a few. 
 
 I've developed an extensive background in data science during graduate school. My research has primarily focused on developing automated machine-learning frameworks to download, process, and analyze gigabytes of multi-dimensional astronomical measurements from both ground and space based instruments. My statistical background encompasses both frequentist statistics as well as Bayesian statistics in order to better propogate uncertainties through my analyses. My dissertation was primarily centered on analyses I performed using Python 3. I have also developed expertise in SQL for querying, and various data visualization packages such as Matplotlib, Seaborn, and plotly. 
 
