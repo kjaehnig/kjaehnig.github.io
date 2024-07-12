@@ -5,8 +5,8 @@ collection: portfolio
 ---
 {%include base_path%}
 
-
-**This project is now available to interact with at [Streamlit Web App](https://pneumonia-xray-bayesian-detector.streamlit.app/)**{: .notice--warning}
+> [!NOTE]
+>**This project is now available to interact with at [Streamlit Web App](https://pneumonia-xray-bayesian-detector.streamlit.app/)**
 
 
 ### Introduction and Context
