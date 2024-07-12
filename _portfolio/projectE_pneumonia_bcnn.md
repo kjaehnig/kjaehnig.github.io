@@ -6,7 +6,7 @@ collection: portfolio
 {%include base_path%}
 
 
-**This project is now available to interact with at [Streamlit Web App](https://pneumonia-xray-bayesian-detector.streamlit.app/)**{: .notice--info}
+**You can now interact with the featured Bayesian Neural Network at this [Streamlit Web App](https://pneumonia-xray-bayesian-detector.streamlit.app/)**{: .notice--info}
 
 
 ### Introduction and Context
@@ -327,7 +327,7 @@ isn't as sure, which means the predictions have more variation, increasing the e
 |![Entropy Dists](/images/pneumonia_cxr_nn/pneumonia_bcnn_entropy_dist.png)|
 
 
-
+Thanks for reading this far. I enjoyed learning how to make use of pre-trained networks to perform feature extraction as well as managing memory to be able to leverage more out of a smaller personal computer. This project is now accessible as well in a streamlit web app where you can play with adding different types of image noise and manipulating test images in browser with the trained model used here. Hope you enjoyed reading! 
 
 
 
@@ -373,7 +373,6 @@ isn't as sure, which means the predictions have more variation, increasing the e
   </tbody>
 
 </table>
-
 
 
 
