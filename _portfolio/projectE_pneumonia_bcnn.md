@@ -6,7 +6,7 @@ collection: portfolio
 {%include base_path%}
 
 
-**STILL UNDER CONSTRUCTION**{: .notice--warning}
+**This project is now available to interact with at [Streamlit Web App](https://pneumonia-xray-bayesian-detector.streamlit.app/)**{: .notice--warning}
 
 
 ### Introduction and Context
