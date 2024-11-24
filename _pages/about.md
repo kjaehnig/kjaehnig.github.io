@@ -1,6 +1,6 @@
 ---
 permalink: /
-title: "Hi!! :wave:"
+title: "Hi!! :wave: "
 excerpt: "About me"
 author_profile: true
 redirect_from: 
@@ -27,4 +27,4 @@ When I am not doing work I will usually do some embroidery on a loop or on my co
  -->
 
 |:-:|:-:|
-|![Harry, 10](images/harry_as_baby.png "Harry, 10yo")|![Vera, 5](images/vera_as_baby.png "Vera, 5yo")|
+|![Harry, 11](images/harry_as_baby.png "Harry, 11yo")|![Vera, 5](images/vera_as_baby.png "Vera, 5yo")|
