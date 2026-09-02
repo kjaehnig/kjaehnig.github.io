@@ -1,6 +1,6 @@
 ---
 permalink: /
-title: "Hi!! ::wave:: "
+title: "Hi!!"
 excerpt: "About me"
 author_profile: true
 redirect_from: 
