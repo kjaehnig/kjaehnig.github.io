@@ -6,6 +6,10 @@
 # `jekyll serve`. If you change this file, please restart the server process.
 
 # Site Settings
+remote_theme: pages-themes/minimal@v0.2.0
+plugins:
+  - jekyll-remote-theme
+
 locale                   : "en-US"
 title                    : "Karl Jaehnig"
 title_separator          : "-"
