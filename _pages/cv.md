@@ -13,7 +13,7 @@ redirect_from:
 Work experience
 ======
 
-#### Jan2024 - Present: Part-time AI/ML Instructor, *AI-4-ALL*
+#### Jan2024 - Present: AI/ML Instructor, *AI-4-ALL*
   * Mentored and guided student teams to design, train, and launch analytics pipelines that cleaned,
 integrated, and visualized multi-modal datasets within a 13 week spring cycle
   * Revamped Colab-based coding modules to emphasize data extraction, data transformation, and data visualizations to
